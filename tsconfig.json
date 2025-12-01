@@ -21,7 +21,14 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@lib*": ["./src/lib/*"]
+      "@views/*": ["./src/views/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@features/*": ["./src/features/*"],
+
+      "@api/*": ["./src/shared/api/*"],
+      "@lib/*": ["./src/shared/lib/*"],
+      "@utils/*": ["./src/shared/utils/*"],
+      "@ui/*": ["./src/shared/ui/*"]
     }
   },
   "include": [
