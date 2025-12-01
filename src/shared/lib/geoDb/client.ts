@@ -1,4 +1,5 @@
-import { GeoDbCitiesResponse, GeoDbCityParams } from '@lib/geoDb/types';
+import {GeoDbCitiesResponse, GeoDbCityParams} from '@/shared/lib/geoDb/types';
+
 
 interface GeoDbApiClientOptions {
 	baseUrl: string;

@@ -1,4 +1,4 @@
-import {Button} from '@/shared/ui/button';
+import {LogoutButton} from '@features/auth/logout';
 import Image from 'next/image';
 
 export const HomePage = () => {
@@ -60,7 +60,7 @@ export const HomePage = () => {
 						Documentation
 					</a>
 				</div>
-				<Button variant={'outline'}>Hello button</Button>
+				<LogoutButton/>
 			</main>
 		</div>
 	);

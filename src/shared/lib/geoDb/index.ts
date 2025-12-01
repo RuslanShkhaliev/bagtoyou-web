@@ -1,5 +1,5 @@
-export * from './types';
-import { GeoDbApiClient } from '@lib/geoDb/client';
+export * from 'src/shared/lib/geoDb/types';
+import {GeoDbApiClient} from '@/shared/lib/geoDb/client';
 
 export const geoApiClient = new GeoDbApiClient({
 	apiKey: process.env.EXPO_PUBLIC_RAPID_API_KEY,
