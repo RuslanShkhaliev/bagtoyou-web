@@ -1,5 +1,5 @@
+import {createBrowserClient} from '@api/supabase';
 import {useMutation} from '@tanstack/react-query';
-import {createClient} from '@utils/supabase/client';
 
 
 interface SignUpCredentials {
@@ -8,7 +8,7 @@ interface SignUpCredentials {
 	name: string;
 }
 export const useSignUp = () => {
-	const supabase = createClient()
+	const supabase = createBrowserClient()
 
 	return useMutation({
 		mutationFn: async (credentials: SignUpCredentials) => {

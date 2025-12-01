@@ -1,4 +1,4 @@
-import {updateSession} from '@utils/supabase';
+import {updateSession} from '@api/supabase';
 import {NextRequest} from 'next/server';
 
 export async function proxy(request: NextRequest) {

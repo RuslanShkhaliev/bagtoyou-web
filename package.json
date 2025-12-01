@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate:api": "yarn supabase gen types --project-id abktpujkcfrqvwduhxwn > src/shared/utils/supabase/v1.d.ts"
+    "generate:api": "yarn supabase gen types --project-id abktpujkcfrqvwduhxwn > src/shared/api/supabase/v1.d.ts"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",

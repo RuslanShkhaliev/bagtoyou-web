@@ -1,9 +1,9 @@
+import {createBrowserClient} from '@api/supabase';
 import {SignInWithPasswordCredentials} from '@supabase/supabase-js';
 import {useMutation} from '@tanstack/react-query';
-import {createClient} from '@utils/supabase/client';
 
 export const useSignIn = () => {
-	const supabase = createClient()
+	const supabase = createBrowserClient()
 	return useMutation({
 		mutationFn: async (credentials: SignInWithPasswordCredentials) => {
 				const { data, error } = await supabase.auth.signInWithPassword(credentials);
