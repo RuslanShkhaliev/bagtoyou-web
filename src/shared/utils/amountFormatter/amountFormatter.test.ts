@@ -1,4 +1,4 @@
-import { AmountFormatter } from './AmountFormatter'
+import {AmountFormatter} from '@/shared/utils/amountFormatter/AmountFormatter';
 
 describe('AmountFormatter', () => {
     const formatter = new AmountFormatter()
