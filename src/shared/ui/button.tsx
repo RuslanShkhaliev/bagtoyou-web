@@ -1,6 +1,6 @@
 import {cn} from '@lib/utils';
 import {Slot} from '@radix-ui/react-slot';
-import {Spinner} from '@ui/spinner';
+import {Spinner} from '@shared/ui';
 import {cva, type VariantProps} from 'class-variance-authority';
 import * as React from 'react';
 import {ComponentProps} from 'react';

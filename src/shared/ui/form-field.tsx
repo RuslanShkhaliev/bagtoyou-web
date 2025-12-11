@@ -1,4 +1,4 @@
-import {Field, FieldDescription, FieldError, FieldLabel} from '@ui/field';
+import {Field, FieldDescription, FieldError, FieldLabel} from '@shared/ui';
 import {FC, PropsWithChildren} from 'react';
 
 type FormFieldProps = PropsWithChildren<{

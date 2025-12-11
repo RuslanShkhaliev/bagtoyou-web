@@ -1,4 +1,4 @@
-import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '@ui/input-group';
+import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '@shared/ui';
 import {EyeIcon, EyeOff} from 'lucide-react';
 import {ComponentProps, useState} from 'react';
 

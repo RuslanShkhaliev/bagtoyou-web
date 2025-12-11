@@ -1,7 +1,5 @@
 import {cn} from '@lib/utils';
-import {Button} from '@ui/button';
-import {Input} from '@ui/input';
-import {Textarea} from '@ui/textarea';
+import {Button, Input, Textarea} from '@shared/ui';
 import {cva, type VariantProps} from 'class-variance-authority';
 import * as React from 'react';
 
