@@ -25,10 +25,11 @@
       "@entities/*": ["./src/entities/*"],
       "@features/*": ["./src/features/*"],
 
+      "@shared/*": ["./src/shared/*"],
+      "@hooks/*": ["./src/shared/hooks/*"],
       "@api/*": ["./src/shared/api/*"],
       "@lib/*": ["./src/shared/lib/*"],
       "@utils/*": ["./src/shared/utils/*"],
-      "@ui/*": ["./src/shared/ui/*"]
     }
   },
   "include": [

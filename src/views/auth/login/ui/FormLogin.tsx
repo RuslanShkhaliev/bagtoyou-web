@@ -2,9 +2,9 @@
 
 import {useForm} from '@tanstack/react-form';
 import {Button} from '@ui/button';
-import {FormField} from '@ui/FormField';
+import {FormField} from '@ui/form-field';
 import {Input} from '@ui/input';
-import {InputPassword} from '@ui/InputPassword';
+import {InputPassword} from '@ui/Input-password';
 import {useSignIn} from '@views/auth/login/api/sign-in';
 import {loginFormSchema, LoginSchema} from '@views/auth/login/model/schema';
 import {useRouter} from 'next/navigation';

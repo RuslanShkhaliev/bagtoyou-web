@@ -25,7 +25,7 @@ export interface GeoDbModel {
 	population: number;
 }
 
-export interface GeoDbCitiesResponse {
+export interface ResponseGeoDbCities {
 	data: GeoDbModel[];
 	metadata: {
 		currentOffset: number;

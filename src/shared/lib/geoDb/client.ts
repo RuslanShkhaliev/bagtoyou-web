@@ -1,4 +1,4 @@
-import {GeoDbCitiesResponse, GeoDbCityParams} from '@/shared/lib/geoDb/types';
+import {GeoDbCityParams, ResponseGeoDbCities} from '@lib/geoDb/model/types';
 
 
 interface GeoDbApiClientOptions {
@@ -26,7 +26,7 @@ export class GeoDbApiClient {
 
 	public getCities = async (
 		params: GeoDbCityParams,
-	): Promise<GeoDbCitiesResponse> => {
+	): Promise<ResponseGeoDbCities> => {
 		const headers = {
 			'x-rapidapi-key': this.apiKey,
 			'x-rapidapi-host': this.host,
@@ -43,7 +43,7 @@ export class GeoDbApiClient {
 			throw new Error(`Fetch cities error! status: ${response.status}`);
 		}
 
-		const data: GeoDbCitiesResponse = await response.json();
+		const data: ResponseGeoDbCities = await response.json();
 
 		return data;
 	};
@@ -58,4 +58,8 @@ export class GeoDbApiClient {
 
 		return queryParams.toString();
 	}
+}
+
+export const createGeoApiClient = (options: GeoDbApiClientOptions): GeoDbApiClient => {
+	return new GeoDbApiClient(options);
 }

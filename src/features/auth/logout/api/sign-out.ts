@@ -1,6 +1,6 @@
 "use server";
 
-import {createServerClient} from '@api/supabase';
+import {createServerClient} from '@api/supabase/server';
 import {revalidatePath} from 'next/cache';
 
 export async function signOut() {
