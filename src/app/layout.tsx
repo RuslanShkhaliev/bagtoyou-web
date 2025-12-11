@@ -1,4 +1,5 @@
 import {QueryProvider} from '@/app/providers/QueryProvider';
+import {Tabbar} from '@/widgets/tabbar';
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
@@ -27,12 +28,15 @@ export default function RootLayout({
   return (
     <html lang="en" className='dark'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col h-screen`}
       >
 	  <QueryProvider>
-		  {children}
+		  <div className="pb-[50px] overflow-auto flex-1">
+			  {children}
+		  </div>
 	  </QueryProvider>
 	  <Toaster />
+	  <Tabbar/>
 	  </body>
     </html>
   );
