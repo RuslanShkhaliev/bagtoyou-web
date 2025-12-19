@@ -1,1 +1,1 @@
-export type LocationTarget = 'to' | 'from'
+export type LocationTarget = 'to' | 'from';

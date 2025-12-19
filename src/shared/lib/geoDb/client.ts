@@ -1,5 +1,4 @@
-import {GeoDbCityParams, ResponseGeoDbCities} from '@lib/geoDb/model/types';
-
+import { GeoDbCityParams, ResponseGeoDbCities } from '@lib/geoDb/model/types';
 
 interface GeoDbApiClientOptions {
 	baseUrl: string;
@@ -60,6 +59,8 @@ export class GeoDbApiClient {
 	}
 }
 
-export const createGeoApiClient = (options: GeoDbApiClientOptions): GeoDbApiClient => {
+export const createGeoApiClient = (
+	options: GeoDbApiClientOptions,
+): GeoDbApiClient => {
 	return new GeoDbApiClient(options);
-}
+};

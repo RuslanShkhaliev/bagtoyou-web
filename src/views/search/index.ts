@@ -1,1 +1,1 @@
-export * from '@views/search/ui/SearchPage/page.server'
+export * from '@views/search/ui/SearchPage/page.server';

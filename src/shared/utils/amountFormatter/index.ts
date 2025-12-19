@@ -1,3 +1,3 @@
-import {AmountFormatter} from '@/shared/utils/amountFormatter/AmountFormatter';
+import { AmountFormatter } from './AmountFormatter';
 
-export const amountFormatter = new AmountFormatter()
+export const amountFormatter = new AmountFormatter();

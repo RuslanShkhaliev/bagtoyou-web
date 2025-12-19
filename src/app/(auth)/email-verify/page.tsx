@@ -1,1 +1,1 @@
-export { EmailSuccessPage as default } from '@views/auth/email-verify'
+export { EmailSuccessPage as default } from '@views/auth/email-verify';

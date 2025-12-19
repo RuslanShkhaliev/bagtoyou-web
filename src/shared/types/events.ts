@@ -1,4 +1,10 @@
-import {ChangeEvent, FocusEvent, FormEvent, KeyboardEvent, MouseEvent} from 'react';
+import {
+	ChangeEvent,
+	FocusEvent,
+	FormEvent,
+	KeyboardEvent,
+	MouseEvent,
+} from 'react';
 
 /**
  * Типы событий для элементов форм
@@ -8,12 +14,16 @@ import {ChangeEvent, FocusEvent, FormEvent, KeyboardEvent, MouseEvent} from 'rea
 export type InputChangeEvent = ChangeEvent<HTMLInputElement>;
 export type TextareaChangeEvent = ChangeEvent<HTMLTextAreaElement>;
 export type SelectChangeEvent = ChangeEvent<HTMLSelectElement>;
-export type FormElementChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+export type FormElementChangeEvent = ChangeEvent<
+	HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+>;
 
 // Focus события
 export type InputFocusEvent = FocusEvent<HTMLInputElement>;
 export type TextareaFocusEvent = FocusEvent<HTMLTextAreaElement>;
-export type FormElementFocusEvent = FocusEvent<HTMLInputElement | HTMLTextAreaElement>;
+export type FormElementFocusEvent = FocusEvent<
+	HTMLInputElement | HTMLTextAreaElement
+>;
 
 // Form события
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;

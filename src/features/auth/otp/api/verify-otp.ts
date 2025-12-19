@@ -1,7 +1,7 @@
 'use server';
 
-import {createServerClient} from '@api/supabase';
-import {VerifyOtpParams} from '@supabase/auth-js';
+import { createServerClient } from '@api/supabase';
+import { VerifyOtpParams } from '@supabase/auth-js';
 
 export const verifyOtp = async (verifyParams: VerifyOtpParams) => {
 	const supabase = await createServerClient();
@@ -10,4 +10,4 @@ export const verifyOtp = async (verifyParams: VerifyOtpParams) => {
 	if (!error) {
 		throw error;
 	}
-}
+};

@@ -1,7 +1,7 @@
-"use server";
+'use server';
 
-import {createServerClient} from '@api/supabase/server';
-import {revalidatePath} from 'next/cache';
+import { createServerClient } from '@api/supabase/server';
+import { revalidatePath } from 'next/cache';
 
 export async function signOut() {
 	const supabase = await createServerClient();
@@ -12,5 +12,5 @@ export async function signOut() {
 		throw error;
 	}
 
-	revalidatePath("/", "layout");
+	revalidatePath('/', 'layout');
 }

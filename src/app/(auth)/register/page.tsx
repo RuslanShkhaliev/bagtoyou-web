@@ -1,1 +1,1 @@
-export { RegisterPage as default } from '@views/auth/register'
+export { RegisterPage as default } from '@views/auth/register';

@@ -1,3 +1,3 @@
-import {GeoDbModel} from '@lib/geoDb';
+import { GeoDbModel } from '@lib/geoDb';
 
-export type CityItem = Pick<GeoDbModel, 'city' | 'country'>
+export type CityItem = Pick<GeoDbModel, 'city' | 'country'>;

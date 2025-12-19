@@ -28,4 +28,8 @@ export class AmountFormatter {
 
 		return this.formatter.format(numericAmount);
 	};
+
+	public parse(input: string): string {
+		return input.replace(/[^\d,\.-]/g, '').replace(',', '.');
+	}
 }

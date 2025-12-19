@@ -1,19 +1,12 @@
-import {InputGroup, InputGroupAddon, InputGroupInput} from '@shared/ui';
-import {Search} from 'lucide-react';
-import {FC} from 'react';
+import { AppInput, AppInputProps } from '@shared/ui/app-input';
+import { Search } from 'lucide-react';
+import { FC } from 'react';
 
-
-type InputSearchProps = React.ComponentProps<"input">;
-export const InputSearch: FC<InputSearchProps> = (props) => {
-
-
-
+export const InputSearch: FC<AppInputProps> = (props) => {
 	return (
-		<InputGroup>
-			<InputGroupAddon>
-				<Search/>
-			</InputGroupAddon>
-			<InputGroupInput {...props}/>
-		</InputGroup>
-	)
-}
+		<AppInput
+			{...props}
+			icon={<Search />}
+		/>
+	);
+};

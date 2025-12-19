@@ -14,6 +14,35 @@ export type Database = {
   }
   public: {
     Tables: {
+      ad_media: {
+        Row: {
+          ad_id: number | null
+          id: number
+          order: number | null
+          url: string
+        }
+        Insert: {
+          ad_id?: number | null
+          id?: number
+          order?: number | null
+          url: string
+        }
+        Update: {
+          ad_id?: number | null
+          id?: number
+          order?: number | null
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ad_media_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: false
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ad_views: {
         Row: {
           ad_id: number
@@ -41,112 +70,53 @@ export type Database = {
             referencedRelation: "ads"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "fk_ad"
-            columns: ["ad_id"]
-            isOneToOne: false
-            referencedRelation: "ads_active_view"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_ad"
-            columns: ["ad_id"]
-            isOneToOne: false
-            referencedRelation: "profile_ads_view"
-            referencedColumns: ["id"]
-          },
         ]
       }
       ads: {
         Row: {
           author_id: string
-          closed_reason: Database["public"]["Enums"]["close_reason"] | null
+          category_id: number
           created_at: string
           currency: string | null
-          date_end: string | null
-          date_start: string | null
           description: string
           expire_at: string
           id: number
-          is_booked: boolean
           is_closed: boolean
           is_expired: boolean
-          location_from:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media: string[]
-          moderation_status: Database["public"]["Enums"]["moderation_status"]
-          parcel: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards: string
+          price: number
           status: Database["public"]["Enums"]["ad_status"]
           title: string
-          transport: number | null
-          type: number
           updated_at: string
-          views: number
         }
         Insert: {
           author_id?: string
-          closed_reason?: Database["public"]["Enums"]["close_reason"] | null
+          category_id: number
           created_at?: string
           currency?: string | null
-          date_end?: string | null
-          date_start?: string | null
           description?: string
           expire_at: string
-          id?: number
-          is_booked?: boolean
+          id: number
           is_closed?: boolean
           is_expired?: boolean
-          location_from?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media: string[]
-          moderation_status?: Database["public"]["Enums"]["moderation_status"]
-          parcel?: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards?: string
+          price?: number
           status?: Database["public"]["Enums"]["ad_status"]
           title?: string
-          transport?: number | null
-          type: number
           updated_at?: string
-          views?: number
         }
         Update: {
           author_id?: string
-          closed_reason?: Database["public"]["Enums"]["close_reason"] | null
+          category_id?: number
           created_at?: string
           currency?: string | null
-          date_end?: string | null
-          date_start?: string | null
           description?: string
           expire_at?: string
           id?: number
-          is_booked?: boolean
           is_closed?: boolean
           is_expired?: boolean
-          location_from?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media?: string[]
-          moderation_status?: Database["public"]["Enums"]["moderation_status"]
-          parcel?: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards?: string
+          price?: number
           status?: Database["public"]["Enums"]["ad_status"]
           title?: string
-          transport?: number | null
-          type?: number
           updated_at?: string
-          views?: number
         }
         Relationships: [
           {
@@ -156,356 +126,103 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "ads_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
         ]
       }
-      draft_ads: {
+      categories: {
         Row: {
-          author_id: string
-          created_at: string
-          data: Json
+          icon: string | null
           id: number
-          step: number
-          updated_at: string
+          is_active: boolean | null
+          name: string
+          order: number | null
+          parent_id: number | null
+          slug: string
         }
         Insert: {
-          author_id?: string
-          created_at?: string
-          data: Json
+          icon?: string | null
           id?: number
-          step?: number
-          updated_at?: string
+          is_active?: boolean | null
+          name: string
+          order?: number | null
+          parent_id?: number | null
+          slug: string
         }
         Update: {
-          author_id?: string
-          created_at?: string
-          data?: Json
+          icon?: string | null
           id?: number
-          step?: number
-          updated_at?: string
+          is_active?: boolean | null
+          name?: string
+          order?: number | null
+          parent_id?: number | null
+          slug?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
-          ads: number
+          about: string | null
           avatar: string
-          bio: string | null
           created_at: string
           email: string
           id: string
-          name: string
           phone: string
           rating: number
-          role: Database["public"]["Enums"]["user_role"]
           updated_at: string
+          username: string
           verified: boolean
         }
         Insert: {
-          ads?: number
+          about?: string | null
           avatar?: string
-          bio?: string | null
           created_at?: string
           email: string
           id?: string
-          name?: string
           phone?: string
           rating?: number
-          role?: Database["public"]["Enums"]["user_role"]
           updated_at?: string
+          username?: string
           verified?: boolean
         }
         Update: {
-          ads?: number
+          about?: string | null
           avatar?: string
-          bio?: string | null
           created_at?: string
           email?: string
           id?: string
-          name?: string
           phone?: string
           rating?: number
-          role?: Database["public"]["Enums"]["user_role"]
           updated_at?: string
+          username?: string
           verified?: boolean
         }
         Relationships: []
       }
     }
     Views: {
-      ads_active_view: {
-        Row: {
-          author_id: string | null
-          closed_reason: Database["public"]["Enums"]["close_reason"] | null
-          created_at: string | null
-          currency: string | null
-          date_end: string | null
-          date_start: string | null
-          description: string | null
-          expire_at: string | null
-          id: number | null
-          is_booked: boolean | null
-          is_closed: boolean | null
-          is_expired: boolean | null
-          location_from:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media: string[] | null
-          moderation_status:
-            | Database["public"]["Enums"]["moderation_status"]
-            | null
-          parcel: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards: string | null
-          status: Database["public"]["Enums"]["ad_status"] | null
-          title: string | null
-          transport: number | null
-          type: number | null
-          updated_at: string | null
-          views: number | null
-        }
-        Insert: {
-          author_id?: string | null
-          closed_reason?: Database["public"]["Enums"]["close_reason"] | null
-          created_at?: string | null
-          currency?: string | null
-          date_end?: string | null
-          date_start?: string | null
-          description?: string | null
-          expire_at?: string | null
-          id?: number | null
-          is_booked?: boolean | null
-          is_closed?: boolean | null
-          is_expired?: boolean | null
-          location_from?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media?: string[] | null
-          moderation_status?:
-            | Database["public"]["Enums"]["moderation_status"]
-            | null
-          parcel?: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards?: string | null
-          status?: Database["public"]["Enums"]["ad_status"] | null
-          title?: string | null
-          transport?: number | null
-          type?: number | null
-          updated_at?: string | null
-          views?: number | null
-        }
-        Update: {
-          author_id?: string | null
-          closed_reason?: Database["public"]["Enums"]["close_reason"] | null
-          created_at?: string | null
-          currency?: string | null
-          date_end?: string | null
-          date_start?: string | null
-          description?: string | null
-          expire_at?: string | null
-          id?: number | null
-          is_booked?: boolean | null
-          is_closed?: boolean | null
-          is_expired?: boolean | null
-          location_from?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media?: string[] | null
-          moderation_status?:
-            | Database["public"]["Enums"]["moderation_status"]
-            | null
-          parcel?: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards?: string | null
-          status?: Database["public"]["Enums"]["ad_status"] | null
-          title?: string | null
-          transport?: number | null
-          type?: number | null
-          updated_at?: string | null
-          views?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "ads_author_id_fkey1"
-            columns: ["author_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      profile_ads_view: {
-        Row: {
-          author_id: string | null
-          closed_reason: Database["public"]["Enums"]["close_reason"] | null
-          created_at: string | null
-          currency: string | null
-          date_end: string | null
-          date_start: string | null
-          description: string | null
-          expire_at: string | null
-          id: number | null
-          is_booked: boolean | null
-          is_closed: boolean | null
-          is_expired: boolean | null
-          location_from:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media: string[] | null
-          moderation_status:
-            | Database["public"]["Enums"]["moderation_status"]
-            | null
-          parcel: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards: string | null
-          status: Database["public"]["Enums"]["ad_status"] | null
-          title: string | null
-          transport: number | null
-          type: number | null
-          updated_at: string | null
-          views: number | null
-        }
-        Insert: {
-          author_id?: string | null
-          closed_reason?: Database["public"]["Enums"]["close_reason"] | null
-          created_at?: string | null
-          currency?: string | null
-          date_end?: string | null
-          date_start?: string | null
-          description?: string | null
-          expire_at?: string | null
-          id?: number | null
-          is_booked?: boolean | null
-          is_closed?: boolean | null
-          is_expired?: boolean | null
-          location_from?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media?: string[] | null
-          moderation_status?:
-            | Database["public"]["Enums"]["moderation_status"]
-            | null
-          parcel?: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards?: string | null
-          status?: Database["public"]["Enums"]["ad_status"] | null
-          title?: string | null
-          transport?: number | null
-          type?: number | null
-          updated_at?: string | null
-          views?: number | null
-        }
-        Update: {
-          author_id?: string | null
-          closed_reason?: Database["public"]["Enums"]["close_reason"] | null
-          created_at?: string | null
-          currency?: string | null
-          date_end?: string | null
-          date_start?: string | null
-          description?: string | null
-          expire_at?: string | null
-          id?: number | null
-          is_booked?: boolean | null
-          is_closed?: boolean | null
-          is_expired?: boolean | null
-          location_from?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to?:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media?: string[] | null
-          moderation_status?:
-            | Database["public"]["Enums"]["moderation_status"]
-            | null
-          parcel?: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards?: string | null
-          status?: Database["public"]["Enums"]["ad_status"] | null
-          title?: string | null
-          transport?: number | null
-          type?: number | null
-          updated_at?: string | null
-          views?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "ads_author_id_fkey1"
-            columns: ["author_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
+      [_ in never]: never
     }
     Functions: {
-      calc_ad_expiration_date: {
-        Args: { p_created_at: string; p_date_end: string }
-        Returns: string
-      }
       close_ad: {
         Args: {
           ad_id: string
           reason: Database["public"]["Enums"]["close_reason"]
         }
         Returns: undefined
-      }
-      copy_files: { Args: { media_paths: string[] }; Returns: undefined }
-      create_ad_from_draft: {
-        Args: { draft: Database["public"]["Tables"]["draft_ads"]["Row"] }
-        Returns: {
-          author_id: string
-          closed_reason: Database["public"]["Enums"]["close_reason"] | null
-          created_at: string
-          currency: string | null
-          date_end: string | null
-          date_start: string | null
-          description: string
-          expire_at: string
-          id: number
-          is_booked: boolean
-          is_closed: boolean
-          is_expired: boolean
-          location_from:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media: string[]
-          moderation_status: Database["public"]["Enums"]["moderation_status"]
-          parcel: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards: string
-          status: Database["public"]["Enums"]["ad_status"]
-          title: string
-          transport: number | null
-          type: number
-          updated_at: string
-          views: number
-        }
-        SetofOptions: {
-          from: "draft_ads"
-          to: "ads"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
-      delete_draft: { Args: { draft_id: number }; Returns: undefined }
-      get_ads_count_by_status: {
-        Args: { status_filter: number[]; user_id: string }
-        Returns: {
-          count: number
-          status: number
-        }[]
       }
       get_end_of_day: { Args: { p_timestamp: string }; Returns: string }
       get_profile_ads_counts: {
@@ -515,70 +232,7 @@ export type Database = {
           status: string
         }[]
       }
-      get_user_draft_ads_count: { Args: { user_id: string }; Returns: number }
-      increment_ad_views: { Args: { ad_id: string }; Returns: undefined }
-      insert_ad_from_draft: {
-        Args: { draft: Database["public"]["Tables"]["draft_ads"]["Row"] }
-        Returns: {
-          author_id: string
-          closed_reason: Database["public"]["Enums"]["close_reason"] | null
-          created_at: string
-          currency: string | null
-          date_end: string | null
-          date_start: string | null
-          description: string
-          expire_at: string
-          id: number
-          is_booked: boolean
-          is_closed: boolean
-          is_expired: boolean
-          location_from:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          location_to:
-            | Database["public"]["CompositeTypes"]["geo_db_city"]
-            | null
-          media: string[]
-          moderation_status: Database["public"]["Enums"]["moderation_status"]
-          parcel: Database["public"]["CompositeTypes"]["parcel_info"] | null
-          rewards: string
-          status: Database["public"]["Enums"]["ad_status"]
-          title: string
-          transport: number | null
-          type: number
-          updated_at: string
-          views: number
-        }
-        SetofOptions: {
-          from: "draft_ads"
-          to: "ads"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
       mark_expired_ads: { Args: never; Returns: undefined }
-      republish_ad: { Args: { ad_id: string }; Returns: undefined }
-      to_geo_db_city: {
-        Args: { location: Json }
-        Returns: Database["public"]["CompositeTypes"]["geo_db_city"]
-        SetofOptions: {
-          from: "*"
-          to: "geo_db_city"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
-      to_parcel_info: {
-        Args: { parcel: Json }
-        Returns: Database["public"]["CompositeTypes"]["parcel_info"]
-        SetofOptions: {
-          from: "*"
-          to: "parcel_info"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
-      toggle_booking_ad: { Args: { ad_id: string }; Returns: boolean }
     }
     Enums: {
       ad_deactivated_reason:
@@ -587,7 +241,7 @@ export type Database = {
         | "closed_off_app"
         | "closed_other"
         | "rejected"
-      ad_status: "moderation" | "active" | "inactive"
+      ad_status: "moderation" | "active" | "inactive" | "draft"
       close_reason: "done" | "close_off_app" | "close_other"
       moderation_status: "pending" | "approved" | "rejected"
       user_role: "user" | "admin"
@@ -741,7 +395,7 @@ export const Constants = {
         "closed_other",
         "rejected",
       ],
-      ad_status: ["moderation", "active", "inactive"],
+      ad_status: ["moderation", "active", "inactive", "draft"],
       close_reason: ["done", "close_off_app", "close_other"],
       moderation_status: ["pending", "approved", "rejected"],
       user_role: ["user", "admin"],
