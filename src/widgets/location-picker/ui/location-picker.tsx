@@ -1,65 +1,67 @@
-import {Locations, LocationsErrors} from '@/widgets/location-picker/model/types';
-import {LocationSelector} from '@/widgets/location-picker/ui/location-selector';
-import {LocationSearchSheet} from '@features/location-search';
-import {LocationTarget} from '@features/location-search/model/types';
-import {ModalControllerRef} from '@hooks/use-modal-controller';
-import {GeoDbModel} from '@lib/geoDb';
-import React, {useRef} from 'react';
-
+import { Locations } from '@/widgets/location-picker/model/types';
+import { LocationSearch } from '@features/location-search';
+import { GeoDbModel } from '@lib/geoDb';
+import { ButtonClickEvent } from '@shared/types/events';
+import { Card, CardContent, ReverseButton } from '@shared/ui';
+import { PlaneLandingIcon, PlaneTakeoffIcon, Search } from 'lucide-react';
+import React from 'react';
 
 interface LocationPickerProps {
-	locations: Locations
+	locations: Locations;
 	onChange: (locations: Locations) => void;
 	canReverse?: boolean;
-	errors?: LocationsErrors;
-	error?: string;
 }
 export const LocationPicker = ({
 	locations,
 	onChange,
-	errors,
-	error,
-	canReverse = true,
 }: LocationPickerProps) => {
-	const locationSheetRef = useRef<ModalControllerRef>(null)
-
-	const locationTarget = useRef<LocationTarget | null>(null)
-
-	const handleSelect = (location: GeoDbModel) => {
+	const handleChangeFrom = (location: GeoDbModel | null) => {
 		onChange({
 			...locations,
-			[locationTarget.current!]: location,
-		})
-	}
-
-	const onReverse = () => {
-		onChange({
-			from: locations.to,
-            to: locations.from,
-		})
+			from: location,
+		});
 	};
 
-	const selectFrom = () => {
-		locationTarget.current = 'from';
-		locationSheetRef.current?.open()
-	}
-	const selectTo = () => {
-		locationTarget.current = 'to';
-		locationSheetRef.current?.open()
-    }
+	const handleChangeTo = (location: GeoDbModel | null) => {
+		onChange({
+			...locations,
+			to: location,
+		});
+	};
 
-	const inValid = error || errors?.from || errors?.to;
-
+	const handleReverse = (e: ButtonClickEvent) => {
+		e.stopPropagation();
+		onChange({
+			from: locations.to,
+			to: locations.from,
+		});
+	};
 	return (
 		<>
-			<LocationSelector
-				onReverse={onReverse}
-				selectFrom={selectFrom}
-				selectTo={selectTo}
-				fromValue={locations.from?.city ?? ''}
-				toValue={locations.to?.city ?? ''}
-			/>
-			<LocationSearchSheet ref={locationSheetRef} onSelect={handleSelect}/>
+			<Card className={'relative py-2'}>
+				<CardContent className={'flex items-stretch px-2 gap-2'}>
+					<div className={'flex flex-col justify-center'}>
+						<Search size={20} />
+					</div>
+					<div className='flex flex-col flex-1 items-center justify-center gap-3'>
+						<LocationSearch
+							icon={<PlaneTakeoffIcon />}
+							placeholder='From'
+							value={locations.from}
+							onChange={handleChangeFrom}
+						/>
+						<LocationSearch
+							icon={<PlaneLandingIcon />}
+							placeholder='To'
+							value={locations.to}
+							onChange={handleChangeTo}
+						/>
+						<div className={'absolute z-10'}>
+							<ReverseButton onClick={handleReverse} />
+						</div>
+					</div>
+				</CardContent>
+			</Card>
 		</>
 	);
 };

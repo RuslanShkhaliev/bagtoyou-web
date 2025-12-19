@@ -1,30 +1,51 @@
-import {ClickEvent} from '@shared/types/events';
-import {FormField, InputGroup, InputGroupAddon, InputGroupInput} from '@shared/ui';
-import {X} from 'lucide-react';
-import {FC} from 'react';
-
+import { ClickEvent } from '@shared/types/events';
+import {
+	FormField,
+	InputGroup,
+	InputGroupAddon,
+	InputGroupInput,
+} from '@shared/ui';
+import { X } from 'lucide-react';
+import { FC } from 'react';
 
 interface LocationFieldProps {
 	value: string;
-    onClick: () => void;
-    onClear?: () => void;
-    error?: string;
+	onClick: () => void;
+	onClear?: () => void;
+	error?: string;
+	invalid?: boolean;
 	placeholder?: string;
+	disabled?: boolean;
+	icon?: React.ReactElement;
 }
 
-export const LocationField: FC<LocationFieldProps> = ({value, onClick, onClear, error}) => {
+export const LocationField: FC<LocationFieldProps> = ({
+	value,
+	placeholder,
+	onClick,
+	onClear,
+	error,
+	disabled,
+	invalid,
+	icon,
+}) => {
 	const handleClear = (e: ClickEvent) => {
-		e.stopPropagation()
+		e.stopPropagation();
 		onClear?.();
-	}
+	};
 	return (
-		<FormField errors={error ? [error] : undefined} invalid={!!error}>
+		<FormField
+			errors={error ? [new Error(error)] : undefined}
+			invalid={!!error || invalid}
+		>
 			<InputGroup>
+				{icon && <InputGroupAddon>{icon}</InputGroupAddon>}
 				<InputGroupInput
-					placeholder="From"
+					placeholder={placeholder}
 					readOnly
 					value={value}
 					onClick={onClick}
+					disabled={disabled}
 				/>
 				{value && onClear && (
 					<InputGroupAddon
@@ -36,5 +57,5 @@ export const LocationField: FC<LocationFieldProps> = ({value, onClick, onClear, 
 				)}
 			</InputGroup>
 		</FormField>
-	)
-}
+	);
+};
