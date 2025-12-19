@@ -1,1 +1,1 @@
-export * from './ui/Tabbar'
+export * from 'src/widgets/tabbar/ui/tab-bar';
