@@ -118,7 +118,12 @@ export const RegisterForm: FC<RegisterFormProps> = memo(({ onSubmit }) => {
 				)}
 			</form.Field>
 
-			<Button loading={isPending}>Register</Button>
+			<Button
+				type={'submit'}
+				loading={isPending}
+			>
+				Register
+			</Button>
 		</form>
 	);
 });

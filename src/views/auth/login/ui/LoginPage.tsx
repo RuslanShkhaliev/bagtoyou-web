@@ -2,13 +2,12 @@
 import { LoginForm } from '@features/auth/login';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
 
 export const LoginPage = () => {
 	const router = useRouter();
-	const handleSubmit = useCallback(() => {
+	const handleSubmit = () => {
 		router.back();
-	}, []);
+	};
 	return (
 		<section className='container flex h-screen flex-col items-center justify-center'>
 			<div className='mx-auto max-w-80 flex flex-col justify-center space-y-6 '>

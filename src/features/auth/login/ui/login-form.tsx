@@ -103,7 +103,7 @@ export const LoginForm: FC<LoginFormProps> = memo(({ onSubmit }) => {
 					</FormField>
 				)}
 			</form.Field>
-			<Button>Login</Button>
+			<Button type={'submit'}>Login</Button>
 		</form>
 	);
 });
