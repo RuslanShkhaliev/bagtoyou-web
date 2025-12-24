@@ -1,4 +1,3 @@
-export * from './ui/ad-card';
+export * from 'src/entities/ad/ui/AdCard';
 export * from './model/types';
-export * from './ui/user-ad-card';
-export * from './ui/ad-form';
+export * from 'src/entities/ad/ui/AdForm';

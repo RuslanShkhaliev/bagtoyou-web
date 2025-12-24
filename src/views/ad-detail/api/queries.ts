@@ -1,5 +1,5 @@
 import { createBrowserClient } from '@api/supabase';
-import { Ad } from '@entities/ad';
+import { getAdDetails } from '@entities/ad/api/getAdDetails';
 import { SupabaseClient } from '@supabase/supabase-js';
 import {
 	QueryClient,
@@ -8,38 +8,10 @@ import {
 	useSuspenseQuery,
 } from '@tanstack/react-query';
 
-const getAdById = async (supabase: SupabaseClient, id: number): Promise<Ad> => {
-	const { data, error } = await supabase
-		.from('ads')
-		.select('*')
-		.eq('id', id)
-		.single();
-
-	if (error) {
-		console.error('Error getting ad by ID:', error);
-		throw error;
-	}
-
-	return data as Ad;
-};
-
 export const getAdByIdOptions = (supabase: SupabaseClient, id: number) =>
 	queryOptions({
 		queryKey: ['get-ad-by-id', id],
-		queryFn: async () => {
-			const { data, error } = await supabase
-				.from('ads')
-				.select('*')
-				.eq('id', id)
-				.single();
-
-			if (error) {
-				console.error('Error getting ad by ID:', error);
-				throw error;
-			}
-
-			return data as Ad;
-		},
+		queryFn: () => getAdDetails(supabase, id),
 	});
 export const useGetAdById = (id: number) => {
 	return useSuspenseQuery(getAdByIdOptions(createBrowserClient(), id));

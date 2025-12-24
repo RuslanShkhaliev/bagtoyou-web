@@ -24,3 +24,4 @@ export * from './list-item';
 export * from './avatar';
 export * from './badge';
 export * from './list';
+export * from './dialog';

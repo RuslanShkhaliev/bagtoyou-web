@@ -14,21 +14,21 @@ export type Database = {
   }
   public: {
     Tables: {
-      ad_media: {
+      ad_images: {
         Row: {
-          ad_id: number | null
+          ad_id: number
           id: number
           order: number | null
           url: string
         }
         Insert: {
-          ad_id?: number | null
+          ad_id: number
           id?: number
           order?: number | null
           url: string
         }
         Update: {
-          ad_id?: number | null
+          ad_id?: number
           id?: number
           order?: number | null
           url?: string
@@ -74,46 +74,46 @@ export type Database = {
       }
       ads: {
         Row: {
-          author_id: string
           category_id: number
           created_at: string
           currency: string | null
           description: string
-          expire_at: string
           id: number
           is_closed: boolean
           is_expired: boolean
+          is_favorite: boolean
           price: number
+          seller_id: string
           status: Database["public"]["Enums"]["ad_status"]
           title: string
           updated_at: string
         }
         Insert: {
-          author_id?: string
           category_id: number
           created_at?: string
           currency?: string | null
           description?: string
-          expire_at: string
-          id: number
+          id?: number
           is_closed?: boolean
           is_expired?: boolean
+          is_favorite?: boolean
           price?: number
+          seller_id?: string
           status?: Database["public"]["Enums"]["ad_status"]
           title?: string
           updated_at?: string
         }
         Update: {
-          author_id?: string
           category_id?: number
           created_at?: string
           currency?: string | null
           description?: string
-          expire_at?: string
           id?: number
           is_closed?: boolean
           is_expired?: boolean
+          is_favorite?: boolean
           price?: number
+          seller_id?: string
           status?: Database["public"]["Enums"]["ad_status"]
           title?: string
           updated_at?: string
@@ -121,7 +121,7 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "ads_author_id_fkey1"
-            columns: ["author_id"]
+            columns: ["seller_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]

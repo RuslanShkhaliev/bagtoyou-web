@@ -1,20 +1,19 @@
 import { cn } from '@lib/utils';
-import {
-	Item,
-	ItemContent,
-	ItemDescription,
-	ItemMedia,
-	ItemTitle,
-} from '@shared/ui';
+import { Item, ItemContent, ItemDescription, ItemTitle } from '@shared/ui';
 import { ChevronRight, Circle } from 'lucide-react';
 import { FC, useCallback } from 'react';
 import { MappedCategory } from '../model/types';
 
 interface CategoryItemProps {
+	active?: boolean;
 	data: MappedCategory;
 	onClick: (category: MappedCategory) => void;
 }
-export const CategoryItem: FC<CategoryItemProps> = ({ data, onClick }) => {
+export const CategoryItem: FC<CategoryItemProps> = ({
+	data,
+	active,
+	onClick,
+}) => {
 	const hasChildren = Boolean(data.children?.length);
 	const handleClick = useCallback(() => {
 		onClick(data);
@@ -22,19 +21,8 @@ export const CategoryItem: FC<CategoryItemProps> = ({ data, onClick }) => {
 	return (
 		<Item
 			onClick={handleClick}
-			className={cn('items-center p-0 hover:bg-accent/50 border-0')}
+			className={cn('items-center hover:bg-accent/50 border-0')}
 		>
-			{/* Иконка категории */}
-			<ItemMedia
-				variant={'icon'}
-				className={cn(
-					'overflow-hidden',
-					'flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg text-2xl',
-				)}
-			>
-				{data.icon || '📦'}
-			</ItemMedia>
-
 			<ItemContent className='flex-1 gap-1'>
 				<ItemTitle className='font-medium text-sm leading-tight'>
 					{data.name}

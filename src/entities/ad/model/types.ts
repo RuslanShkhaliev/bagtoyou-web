@@ -1,6 +1,14 @@
 import { Tables } from '@api/supabase/v1';
 
 export type Ad = Tables<'ads'>;
+export type CreateAd = {
+	title: string;
+	category_id: number;
+	description: string;
+	price: number;
+	currency: string;
+};
+export type AdImage = Tables<'ad_images'>;
 export enum AdType {
 	Offer,
 	Request,

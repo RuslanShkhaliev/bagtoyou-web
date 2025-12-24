@@ -6,9 +6,10 @@ import {
 	InputGroupInput,
 } from '@shared/ui/input-group';
 import { X } from 'lucide-react';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useId, useMemo } from 'react';
 
 export interface AppInputProps extends React.ComponentProps<'input'> {
+	label?: string;
 	icon?: React.ReactElement;
 	onClear?: () => void;
 	errors?: (Error | string) | (Error | string)[];
@@ -18,6 +19,7 @@ export interface AppInputProps extends React.ComponentProps<'input'> {
 
 export const AppInput: FC<AppInputProps> = ({
 	value,
+	label,
 	icon,
 	errors,
 	invalid,
@@ -26,6 +28,7 @@ export const AppInput: FC<AppInputProps> = ({
 	onInput,
 	...inputProps
 }) => {
+	const id = useId();
 	const mappedErrors = useMemo(() => {
 		const target = Array.isArray(errors) ? errors : [errors];
 
@@ -46,12 +49,15 @@ export const AppInput: FC<AppInputProps> = ({
 	};
 	return (
 		<FormField
+			htmlFor={id}
 			errors={mappedErrors}
+			label={label}
 			invalid={invalid}
 		>
 			<InputGroup>
 				{icon && <InputGroupAddon>{icon}</InputGroupAddon>}
 				<InputGroupInput
+					id={id}
 					value={value}
 					onInput={handleInput}
 					{...inputProps}

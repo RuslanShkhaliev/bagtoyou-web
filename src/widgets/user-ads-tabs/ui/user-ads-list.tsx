@@ -1,4 +1,4 @@
-import { AdStatus, UserAdCard } from '@entities/ad';
+import { AdStatus } from '@entities/ad';
 import { ItemGroup } from '@shared/ui';
 import { useGetUserAds } from '@widgets/user-ads-tabs/api/useGetUserAds';
 import { SkeletonLoader } from '@widgets/user-ads-tabs/ui/skeleton';
@@ -37,12 +37,7 @@ export const UserAdsList: FC<UserAdsListProps> = ({
 		<ItemGroup className={'px-3 flex flex-col gap-3'}>
 			{ads.map((ad) => (
 				<Fragment key={ad.id}>
-					<Link href={`/ads/${ad.id}`}>
-						<UserAdCard
-							ad={ad}
-							onMenuClick={onMenuClick}
-						/>
-					</Link>
+					<Link href={`/ads/${ad.id}`} />
 				</Fragment>
 			))}
 		</ItemGroup>

@@ -1,17 +1,12 @@
 import { InputChangeEvent } from '@shared/types/events';
+import { BottomSheet } from '@shared/ui/bottom-sheet';
 import { InputSearch } from '@shared/ui/input-search';
-import { amountFormatter } from '@utils/amountFormatter';
+import { Item, ItemGroup } from '@shared/ui/item';
+import { ScrollArea } from '@shared/ui/scroll-area';
 import currencyCodes from 'currency-codes';
 import { ChevronDownIcon } from 'lucide-react';
 import * as React from 'react';
 import { FC, useMemo, useState } from 'react';
-
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from './dropdown-menu';
 import {
 	InputGroup,
 	InputGroupAddon,
@@ -20,9 +15,9 @@ import {
 } from './input-group';
 
 interface InputPriceProps extends React.ComponentProps<'input'> {
-	currency?: string;
-	value: string | number;
-	onChangeValue: (value: string) => void;
+	currency?: string | null;
+	value: number;
+	onChangeValue: (value: number) => void;
 	onChangeCurrency: (currency: string) => void;
 }
 
@@ -37,6 +32,7 @@ export const InputPrice: FC<InputPriceProps> = ({
 	...inputProps
 }) => {
 	const [currencyQuery, setCurrencyQuery] = useState('');
+	const [isOpen, setIsOpen] = useState(false);
 	const displayCurrency = currency || codes[0];
 
 	const filteredCurrencies = useMemo(
@@ -47,54 +43,61 @@ export const InputPrice: FC<InputPriceProps> = ({
 		[currencyQuery],
 	);
 
-	const displayValue = amountFormatter.format(value);
+	const displayValue = value;
 	const handleChange = (e: InputChangeEvent) => {
-		console.log(e.target.value, 'change');
-		onChangeValue(amountFormatter.parse(e.target.value));
+		onChangeValue(e.target.value);
+	};
+
+	const handleSelectCurrency = (code: string) => {
+		onChangeCurrency(code);
+		setIsOpen(false);
+	};
+	const toggleModal = () => {
+		setIsOpen(!isOpen);
 	};
 	return (
 		<InputGroup>
 			<InputGroupInput
 				placeholder={placeholder}
-				onChange={handleChange}
+				onInput={handleChange}
 				value={displayValue}
+				type={'number'}
+				inputMode={'decimal'}
 				{...inputProps}
 			/>
 			<InputGroupAddon align='inline-end'>
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<InputGroupButton
-							variant='ghost'
-							className='!pr-1.5 text-xs'
-						>
-							{displayCurrency}{' '}
-							<ChevronDownIcon className='size-3' />
-						</InputGroupButton>
-					</DropdownMenuTrigger>
-
-					<DropdownMenuContent
-						align='end'
-						className='[--radius:0.95rem]'
-					>
-						<div className={'p-2'}>
-							<InputSearch
-								placeholder={'Поиск...'}
-								value={currencyQuery}
-								onChangeText={setCurrencyQuery}
-							/>
-						</div>
-						<div className={'h-48 overflow-y-auto'}>
+				<InputGroupButton
+					variant='ghost'
+					className='!pr-1.5 text-xs'
+					onClick={toggleModal}
+				>
+					{displayCurrency} <ChevronDownIcon className='size-3' />
+				</InputGroupButton>
+				<BottomSheet
+					open={isOpen}
+					snapPoints={[0.6]}
+					onOpenChange={setIsOpen}
+				>
+					<div className={'sticky top-0 bg-black mb-3'}>
+						<InputSearch
+							placeholder={'Поиск...'}
+							value={currencyQuery}
+							onChangeText={setCurrencyQuery}
+						/>
+					</div>
+					<ScrollArea className={'h-100 overflow-auto'}>
+						<ItemGroup>
 							{filteredCurrencies.map((code, index) => (
-								<DropdownMenuItem
+								<Item
 									key={index}
-									onSelect={() => onChangeCurrency(code)}
+									onClick={() => handleSelectCurrency(code)}
 								>
 									{code}
-								</DropdownMenuItem>
+								</Item>
 							))}
-						</div>
-					</DropdownMenuContent>
-				</DropdownMenu>
+						</ItemGroup>
+					</ScrollArea>
+				</BottomSheet>
 			</InputGroupAddon>
 		</InputGroup>
 	);

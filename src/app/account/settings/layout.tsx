@@ -13,6 +13,7 @@ export default function AccountSettingsLayout({ children }: PropsWithChildren) {
 	return (
 		<BottomSheet
 			open
+			defaultOpen={true}
 			handle={false}
 			onClose={handleClose}
 		>

@@ -31,10 +31,8 @@ export const FormField: FC<FormFieldProps> = ({
 				</FieldLabel>
 			)}
 			{children}
+			{description && <FieldDescription>{description}</FieldDescription>}
 			{Boolean(errors) && <FieldError errors={errors} />}
-			{!errors && description && (
-				<FieldDescription>{description}</FieldDescription>
-			)}
 		</Field>
 	);
 };

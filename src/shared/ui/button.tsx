@@ -1,5 +1,6 @@
 import { cn } from '@lib/utils';
 import { Slot } from '@radix-ui/react-slot';
+import { ButtonClickEvent } from '@shared/types/events';
 import { Spinner } from '@shared/ui';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
@@ -40,6 +41,7 @@ const buttonVariants = cva(
 interface ButtonProps
 	extends ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
 	loading?: boolean;
+	stop?: boolean;
 	asChild?: boolean;
 }
 
@@ -50,15 +52,26 @@ function Button({
 	asChild = false,
 	children,
 	loading = false,
+	type = 'button',
+	stop = true,
+	onClick,
 	...props
 }: ButtonProps) {
 	const Comp = asChild ? Slot : 'button';
 
+	const handleClick = (e: ButtonClickEvent) => {
+		if (stop) {
+			e.stopPropagation();
+		}
+		onClick?.(e);
+	};
 	return (
 		<Comp
 			data-slot='button'
 			className={cn(buttonVariants({ variant, size, className }))}
 			disabled={loading}
+			onClick={handleClick}
+			type={type}
 			{...props}
 		>
 			<>

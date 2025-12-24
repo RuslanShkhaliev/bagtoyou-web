@@ -1,1 +1,1 @@
-export * from '@features/ad-category-select/ui/category-select';
+export * from 'src/features/ad-category-select/ui/SelectCategory';

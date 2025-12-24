@@ -1,42 +1,37 @@
 'use client';
 
-import { Category } from '@entities/category';
-import { CategorySelect } from '@features/ad-category-select';
-import { AdCreateForm } from '@features/ad-create';
-import { BottomSheet } from '@shared/ui';
+import { AdCreatePage } from '@features/ad-create';
+import { BottomSheet, Button } from '@shared/ui';
+import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 
 export const CreateAdPage = () => {
-	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-		null,
-	);
 	const router = useRouter();
 
 	const handleClose = () => {
-		if (selectedCategory) {
-			setSelectedCategory(null);
-		} else {
-			router.back();
-		}
-	};
-	const handleSelectCategory = (category: Category) => {
-		setSelectedCategory(category);
+		router.back();
 	};
 
 	return (
 		<BottomSheet
+			defaultOpen={true}
+			dismissible={false}
 			open={true}
+			handle={false}
 			onClose={handleClose}
 		>
-			{selectedCategory ? (
-				<AdCreateForm category={selectedCategory} />
-			) : (
-				<CategorySelect
-					onClose={handleClose}
-					onSelect={handleSelectCategory}
-				/>
-			)}
+			<header className={'flex justify-center items-center relative'}>
+				<h1 className={'text-center text-lg'}>Новое объявление</h1>
+				<Button
+					className={'absolute right-0'}
+					variant={'ghost'}
+					onClick={handleClose}
+				>
+					Закрыть
+					<X className={'h-4 w-4 ml-2'} />
+				</Button>
+			</header>
+			<AdCreatePage />
 		</BottomSheet>
 	);
 };
