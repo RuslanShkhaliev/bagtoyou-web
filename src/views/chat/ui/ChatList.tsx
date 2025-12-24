@@ -1,6 +1,6 @@
-import { Avatar, AvatarFallback, Badge, Card } from '@shared/ui';
+import type { Chat } from '@entities/chat/model/types';
+import { ChatItem } from '@entities/chat/ui/ChatItem';
 import { MessageCircle } from 'lucide-react';
-import type { Chat } from './ChatWindow';
 
 interface ChatListProps {
 	chats: Chat[];
@@ -23,7 +23,11 @@ export function ChatList({ chats, onSelectChat }: ChatListProps) {
 	return (
 		<div className='space-y-2'>
 			{chats.map((chat) => (
-
+				<ChatItem
+					onClick={onSelectChat}
+					key={chat.id}
+					data={chat}
+				/>
 			))}
 		</div>
 	);

@@ -45,7 +45,7 @@ export const InputPrice: FC<InputPriceProps> = ({
 
 	const displayValue = value;
 	const handleChange = (e: InputChangeEvent) => {
-		onChangeValue(e.target.value);
+		onChangeValue(e.target.valueAsNumber);
 	};
 
 	const handleSelectCurrency = (code: string) => {

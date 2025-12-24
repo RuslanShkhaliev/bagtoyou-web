@@ -58,12 +58,13 @@ export const ImagePicker: FC<ImagePickerProps> = ({
 		onPick?.(newFiles);
 	};
 
+	const handleRemoveOld = (image: ImagePreview) => {
+		setNewPreviews((urls) => urls.filter(({ id }) => id !== image.id));
+	};
+
 	const handleRemoveNew = (image: ImagePreview) => {
 		setNewPreviews((urls) => urls.filter(({ id }) => id !== image.id));
 		URL.revokeObjectURL(image.url);
-	};
-	const handleRemoveOld = (id: number) => {
-		setNewPreviews((urls) => urls.filter(({ id }) => id !== image.id));
 	};
 
 	return (
@@ -72,14 +73,14 @@ export const ImagePicker: FC<ImagePickerProps> = ({
 				<ImagePreview
 					key={image.id}
 					url={image.url}
-					onRemove={() => handleRemoveImage(image.id)}
+					onRemove={() => handleRemoveOld(image)}
 				/>
 			))}
 			{newPreviews.map((image) => (
 				<ImagePreview
 					url={image.url}
 					key={image.id}
-					onRemove={() => handleRemoveImage(image.id)}
+					onRemove={() => handleRemoveNew(image)}
 				/>
 			))}
 

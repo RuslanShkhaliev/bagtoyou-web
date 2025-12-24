@@ -1,20 +1,20 @@
 'use client';
 
-import { AdCard } from '@entities/ad/ui/AdCard';
-import { useGetCategories } from '@entities/category';
+import { AdCard, AdModel } from '@entities/ad/ui/AdCard';
+import { Category, useGetCategories } from '@entities/category';
 import { SearchBar } from '@features/search-bar';
 import { Badge } from '@shared/ui';
 import { useGetAds } from '@views/main/api/getAds';
 import { Locations } from '@widgets/location-picker';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState   } from 'react';
+import { useState } from 'react';
 
-export const SearchPage =  () => {
-	const { data: ads, isLoadi ng, isError } = useGetAds();
+export const SearchPage = () => {
+	const { data: ads, isLoading, isError } = useGetAds();
 	const { data: categories, isLoading: loadingCategories } =
 		useGetCategories();
-	const [selectedCategory, setSelectedCategory] = useState<string | null>(
+	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null,
 	);
 
@@ -68,7 +68,7 @@ export const SearchPage =  () => {
 							<Badge
 								key={category.id}
 								variant={
-									selectedCategory === category
+									selectedCategory?.id === category.id
 										? 'default'
 										: 'outline'
 								}
@@ -88,7 +88,7 @@ export const SearchPage =  () => {
 						href={`/ads/${ad.id}`}
 					>
 						<AdCard
-							data={ad}
+							data={ad as unknown as AdModel}
 							onToggleFavorite={handleToggleFavorite}
 						/>
 					</Link>

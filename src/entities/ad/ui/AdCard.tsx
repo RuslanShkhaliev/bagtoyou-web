@@ -34,10 +34,9 @@ export interface AdModel {
 interface AdCardProps {
 	data: AdModel;
 	onToggleFavorite: (id: string) => void;
-	onClick: () => void;
 }
 
-export function AdCard({ data, onToggleFavorite, onClick }: AdCardProps) {
+export function AdCard({ data, onToggleFavorite }: AdCardProps) {
 	return (
 		<Card className='overflow-hidden cursor-pointer hover:shadow-lg transition-shadow group py-0 gap-0 rounded-sm'>
 			<AspectRatio
@@ -56,10 +55,7 @@ export function AdCard({ data, onToggleFavorite, onClick }: AdCardProps) {
 					<ImageIcon size={'40%'} />
 				)}
 			</AspectRatio>
-			<CardContent
-				className={'px-2 mb-1'}
-				onClick={onClick}
-			>
+			<CardContent className={'px-2 mb-1'}>
 				<CardTitle className='flex items-start justify-between gap-2'>
 					<h3 className='flex-1 font-medium line-clamp-2'>
 						{data.title}

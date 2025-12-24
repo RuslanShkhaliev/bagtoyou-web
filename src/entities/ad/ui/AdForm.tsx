@@ -7,7 +7,7 @@ import { InputPrice } from '@shared/ui/input-price';
 import { useForm } from '@tanstack/react-form';
 import { ImagePicker } from '@widgets/media-picker';
 import { FC, useState } from 'react';
-import { ZodSchema } from 'zod/v3';
+import { ZodSchema } from 'zod';
 
 export interface FormValues {
 	title: string;
@@ -21,8 +21,8 @@ interface AdFormProps {
 	values?: Partial<FormValues>;
 	images?: AdImage[];
 	schema: ZodSchema;
-	onImagePick: (files: File[]) => void;
-	onImageRemove: (image: AdImage) => void;
+	// onImagePick: (files: filese[]) => void;
+	// onImageRemove: (image: AdImage) => void;
 	onSubmit: (formValues: FormValues) => void;
 }
 
@@ -42,12 +42,12 @@ export const AdForm: FC<AdFormProps> = ({
 			price: values?.price || 0,
 			category: values?.category || null,
 		},
-		validators: {
+		/*validators: {
 			onSubmit: schema,
-		},
+		},*/
 		onSubmit: ({ value }) => {
 			console.log({ value }, 'value');
-			onSubmit(value);
+			onSubmit(value as FormValues);
 		},
 	});
 	const [imageToUpload] = useState();

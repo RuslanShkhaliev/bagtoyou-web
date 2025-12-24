@@ -1,30 +1,31 @@
 import { Chat } from '@entities/chat/model/types';
 import { Avatar, AvatarFallback, Badge, Card } from '@shared/ui';
+import { FC } from 'react';
 
-interface Props {
+interface ChatItemProps {
 	data: Chat;
+	onClick: (chat: Chat) => void;
 }
-export const ChatItem = () => {
+export const ChatItem: FC<ChatItemProps> = ({ data, onClick }) => {
 	return (
 		<Card
-			key={chat.id}
 			className='p-4 cursor-pointer hover:shadow-md transition-shadow'
-			onClick={() => onSelectChat(chat)}
+			onClick={() => onClick(data)}
 		>
 			<div className='flex gap-3'>
 				<Avatar className='h-12 w-12'>
 					<AvatarFallback>
-						{chat.otherUser.name.charAt(0).toUpperCase()}
+						{data.otherUser.name.charAt(0).toUpperCase()}
 					</AvatarFallback>
 				</Avatar>
 
 				<div className='flex-1 min-w-0'>
 					<div className='flex items-start justify-between mb-1'>
-						<p className='truncate'>{chat.otherUser.name}</p>
-						{chat.lastMessageTime && (
+						<p className='truncate'>{data.otherUser.name}</p>
+						{data.lastMessageTime && (
 							<span className='text-xs text-muted-foreground whitespace-nowrap ml-2'>
 								{new Date(
-									chat.lastMessageTime,
+									data.lastMessageTime,
 								).toLocaleDateString('ru-RU', {
 									day: 'numeric',
 									month: 'short',
@@ -34,19 +35,19 @@ export const ChatItem = () => {
 					</div>
 
 					<p className='text-sm text-muted-foreground truncate mb-1'>
-						{chat.listingTitle}
+						{data.ad.title}
 					</p>
 
 					<div className='flex items-center justify-between'>
 						<p className='text-sm text-muted-foreground truncate flex-1'>
-							{chat.lastMessage || 'Нет сообщений'}
+							{data.lastMessage || 'Нет сообщений'}
 						</p>
-						{chat.unread > 0 && (
+						{data.unread > 0 && (
 							<Badge
 								variant='default'
 								className='ml-2'
 							>
-								{chat.unread}
+								{data.unread}
 							</Badge>
 						)}
 					</div>

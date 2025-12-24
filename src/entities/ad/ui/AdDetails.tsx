@@ -9,7 +9,7 @@ import type { AdModel } from 'src/entities/ad/ui/AdCard';
 
 interface AdDetailsProps {
 	data: AdModel | null;
-	open: boolean;
+	open?: boolean;
 }
 
 export const AdDetails: FC<AdDetailsProps> = ({ data, open = true }) => {

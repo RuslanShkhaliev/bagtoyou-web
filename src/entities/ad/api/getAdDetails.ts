@@ -33,7 +33,7 @@ export const getAdDetails = async (
 		throw error;
 	}
 
-	return data as Ad;
+	return data as unknown as Ad;
 };
 
 export const getAdOptions = (supabase: SupabaseClient, adId: number) => {

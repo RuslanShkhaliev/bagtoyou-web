@@ -1,3 +1,4 @@
+'use client';
 import { RegisterForm } from '@features/auth/register';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

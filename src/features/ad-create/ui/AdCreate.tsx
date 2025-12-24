@@ -71,6 +71,7 @@ export const AdCreatePage: FC = () => {
 				price: formData.price,
 				category_id: formData.category.id,
 				currency: formData.currency,
+				media: [],
 			},
 			{
 				onSuccess: (id) => {
