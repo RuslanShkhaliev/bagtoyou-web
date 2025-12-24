@@ -1,12 +1,11 @@
 'use client';
 
-import { AdCard, AdModel } from '@entities/ad/ui/AdCard';
+import { AdCard } from '@entities/ad/ui/AdCard';
 import { Category, useGetCategories } from '@entities/category';
 import { SearchBar } from '@features/search-bar';
 import { Badge } from '@shared/ui';
 import { useGetAds } from '@views/main/api/getAds';
 import { Locations } from '@widgets/location-picker';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -32,9 +31,8 @@ export const SearchPage = () => {
 	};
 
 	const router = useRouter();
-	const handleToggleFavorite = () => {};
 	const handleOpenListing = (id: number) => {
-		router.push(`/ad/${id}`);
+		router.push(`/ads/${id}`);
 	};
 
 	if (isLoading) {
@@ -82,16 +80,18 @@ export const SearchPage = () => {
 				</div>
 			</header>
 			<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-2 px-2'>
-				{ads.map((ad) => (
-					<Link
-						key={ad.id}
-						href={`/ads/${ad.id}`}
+				{ads.map((adPreview) => (
+					<AdCard
+						key={adPreview.id}
+						onClick={() => handleOpenListing(adPreview.id)}
+						data={adPreview}
+					/>
+					/*<Link
+						key={adPreview.id}
+						href={`/ads/${adPreview.id}`}
 					>
-						<AdCard
-							data={ad as unknown as AdModel}
-							onToggleFavorite={handleToggleFavorite}
-						/>
-					</Link>
+						<AdCard data={adPreview} />
+					</Link>*/
 				))}
 			</div>
 		</div>

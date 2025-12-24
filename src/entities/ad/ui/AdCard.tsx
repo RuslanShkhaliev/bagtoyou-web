@@ -1,51 +1,35 @@
-import { Category } from '@entities/category';
-import { cn } from '@lib/utils';
+import { AdPreview } from '@entities/ad';
+import { FavoriteButton } from '@features/add-favorite/ui/FavoriteButton';
 import {
 	AmountDisplay,
-	Button,
 	Card,
 	CardContent,
 	CardFooter,
 	CardTitle,
 } from '@shared/ui';
 import { AspectRatio } from '@shared/ui/aspect-ratio';
-import { Heart, ImageIcon, MapPin } from 'lucide-react';
+import { ImageIcon, MapPin } from 'lucide-react';
 import Image from 'next/image';
-
-export interface AdModel {
-	id: string;
-	title: string;
-	price: number;
-	description: string;
-	category: Category;
-	location: string;
-	imageUrl: string;
-	currency: string;
-	is_favorite: boolean;
-	images: string[];
-	seller: {
-		name: string;
-		phone: string;
-		email: string;
-	};
-	createdAt: string;
-}
+import { FC } from 'react';
 
 interface AdCardProps {
-	data: AdModel;
-	onToggleFavorite: (id: string) => void;
+	data: AdPreview;
+	onClick: () => void;
 }
 
-export function AdCard({ data, onToggleFavorite }: AdCardProps) {
+export const AdCard: FC<AdCardProps> = ({ data, onClick }) => {
 	return (
-		<Card className='overflow-hidden cursor-pointer hover:shadow-lg transition-shadow group py-0 gap-0 rounded-sm'>
+		<Card
+			onClick={onClick}
+			className='overflow-hidden cursor-pointer hover:shadow-lg transition-shadow group py-0 gap-0 rounded-sm'
+		>
 			<AspectRatio
 				ratio={1}
 				className={'flex items-center justify-center'}
 			>
-				{Boolean(data.images?.length) ? (
+				{Boolean(data.preview_image) ? (
 					<Image
-						src={data.images[0]}
+						src={data.preview_image}
 						alt={data.title}
 						fill
 						unoptimized
@@ -60,21 +44,10 @@ export function AdCard({ data, onToggleFavorite }: AdCardProps) {
 					<h3 className='flex-1 font-medium line-clamp-2'>
 						{data.title}
 					</h3>
-					<Button
-						variant='ghost'
-						className={cn(
-							data.is_favorite && 'text-red-500',
-							'h-5 w-5',
-						)}
-						onClick={(e) => {
-							e.stopPropagation();
-							onToggleFavorite(data.id);
-						}}
-					>
-						<Heart
-							className={`h-5 w-5 ${data.is_favorite ? 'fill-current' : ''}`}
-						/>
-					</Button>
+					<FavoriteButton
+						favorite={data.is_favorite}
+						ad_id={data.id}
+					/>
 				</CardTitle>
 				<AmountDisplay
 					amount={data.price}
@@ -92,4 +65,4 @@ export function AdCard({ data, onToggleFavorite }: AdCardProps) {
 			</CardFooter>
 		</Card>
 	);
-}
+};

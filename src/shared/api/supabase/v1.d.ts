@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      ad_favorites: {
+        Row: {
+          ad_id: number
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          ad_id: number
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          ad_id?: number
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ad_favorites_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: false
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ad_favorites_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: false
+            referencedRelation: "ads_preview"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ad_images: {
         Row: {
           ad_id: number
@@ -39,6 +72,13 @@ export type Database = {
             columns: ["ad_id"]
             isOneToOne: false
             referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ad_media_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: false
+            referencedRelation: "ads_preview"
             referencedColumns: ["id"]
           },
         ]
@@ -70,6 +110,13 @@ export type Database = {
             referencedRelation: "ads"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "fk_ad"
+            columns: ["ad_id"]
+            isOneToOne: false
+            referencedRelation: "ads_preview"
+            referencedColumns: ["id"]
+          },
         ]
       }
       ads: {
@@ -81,7 +128,6 @@ export type Database = {
           id: number
           is_closed: boolean
           is_expired: boolean
-          is_favorite: boolean
           price: number
           seller_id: string
           status: Database["public"]["Enums"]["ad_status"]
@@ -96,7 +142,6 @@ export type Database = {
           id?: number
           is_closed?: boolean
           is_expired?: boolean
-          is_favorite?: boolean
           price?: number
           seller_id?: string
           status?: Database["public"]["Enums"]["ad_status"]
@@ -111,7 +156,6 @@ export type Database = {
           id?: number
           is_closed?: boolean
           is_expired?: boolean
-          is_favorite?: boolean
           price?: number
           seller_id?: string
           status?: Database["public"]["Enums"]["ad_status"]
@@ -214,7 +258,36 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      ads_preview: {
+        Row: {
+          created_at: string | null
+          currency: string | null
+          id: number | null
+          is_favorite: boolean | null
+          preview_image: string | null
+          price: number | null
+          title: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          currency?: string | null
+          id?: number | null
+          is_favorite?: never
+          preview_image?: never
+          price?: number | null
+          title?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          currency?: string | null
+          id?: number | null
+          is_favorite?: never
+          preview_image?: never
+          price?: number | null
+          title?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       close_ad: {
@@ -233,6 +306,10 @@ export type Database = {
         }[]
       }
       mark_expired_ads: { Args: never; Returns: undefined }
+      toggle_favorite: {
+        Args: { p_ad_id: number; p_user_id?: string }
+        Returns: Json
+      }
     }
     Enums: {
       ad_deactivated_reason:

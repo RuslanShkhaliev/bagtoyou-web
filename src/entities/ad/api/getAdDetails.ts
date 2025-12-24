@@ -16,7 +16,6 @@ export const getAdDetails = async (
             price,
             currency,
             status,
-            is_favorite,
             created_at,
             updated_at,
 			category:categories(id, name),

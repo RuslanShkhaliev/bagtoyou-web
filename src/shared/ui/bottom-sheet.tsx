@@ -19,11 +19,11 @@ export const BottomSheet: FC<BottomSheetProps> = ({
 		>
 			<Drawer.Overlay className='fixed inset-0 bg-black/40' />
 			<Drawer.Portal>
-				<Drawer.Content className='max-w-2xl z-100 fixed outline-0 bottom-0 left-0 right-0 border-0 h-full rounded-t-[10px] bg-background flex flex-col'>
+				<Drawer.Content className='z-100 fixed outline-0 bottom-0 left-0 right-0 border-0 h-full rounded-t-[10px] bg-background flex flex-col'>
 					{handle && <Drawer.Handle className={'my-2'} />}
 					<Drawer.Title />
 					<Drawer.Close />
-					<div className={'px-2'}>{children}</div>
+					<div className={'px-2 overflow-auto'}>{children}</div>
 				</Drawer.Content>
 			</Drawer.Portal>
 		</Drawer.Root>

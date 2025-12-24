@@ -1,1 +1,1 @@
-export * from './ui/bottom-nav';
+export * from 'src/widgets/bottom-nav/ui/BottomNav';

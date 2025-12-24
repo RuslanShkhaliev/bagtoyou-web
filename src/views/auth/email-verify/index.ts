@@ -1,1 +1,1 @@
-export * from 'src/views/auth/email-verify/ui/email-success-page';
+export * from './ui/EmailSuccess';

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export const EmailSuccessPage = () => {
+export const EmailSuccess = () => {
 	return (
 		<div className='h-screen grid place-content-center'>
 			<div className='max-w-md text-center space-y-3'>

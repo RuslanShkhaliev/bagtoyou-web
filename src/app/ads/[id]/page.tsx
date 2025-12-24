@@ -1,1 +1,1 @@
-export { AdDetailPage as default } from '@views/ad-detail';
+export { AdDetailsPage as default } from '@views/ad-details';

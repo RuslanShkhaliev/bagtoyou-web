@@ -9,7 +9,7 @@ export const useGetUserAds = (status: AdStatus) => {
 		queryKey: ['get-user-ads', status],
 		queryFn: async () => {
 			const { data, error } = await supabase
-				.from('profile_ads_view')
+				.from('ads')
 				.select('*')
 				.eq('status', status)
 				.order('updated_at', { ascending: false });

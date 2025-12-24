@@ -1,6 +1,6 @@
 import { ImagePlus, X } from 'lucide-react';
 import Image from 'next/image';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 
 const DEFAULT_MAX_FILES = 5;
 
@@ -25,12 +25,10 @@ export const ImagePicker: FC<ImagePickerProps> = ({
 	onPick,
 	onRemove,
 }) => {
-	const [initialPreviews, setInitialPreviews] = useState<ImagePreview[]>([]);
+	const [initialPreviews, setInitialPreviews] =
+		useState<ImagePreview[]>(value);
 	const [newPreviews, setNewPreviews] = useState<ImagePreview[]>([]);
 
-	useEffect(() => {
-		setInitialPreviews(value);
-	}, [value]);
 	const imageCount = initialPreviews.length + newPreviews.length;
 
 	const fileInputRef = useRef<HTMLInputElement>(null);

@@ -1,4 +1,5 @@
 import { Tables } from '@api/supabase/v1';
+import { Category } from '@entities/category';
 
 export type Ad = Tables<'ads'>;
 export type CreateAd = {
@@ -8,7 +9,35 @@ export type CreateAd = {
 	price: number;
 	currency: string;
 };
+export type AdPreview = {
+	id: number;
+	title: string;
+	preview_image: string;
+	is_favorite: boolean;
+	price: number;
+	currency: string;
+	location: string;
+	created_at: string;
+};
 export type AdImage = Tables<'ad_images'>;
+export interface AdModel {
+	id: string;
+	title: string;
+	price: number;
+	description: string;
+	category: Category;
+	location: string;
+	imageUrl: string;
+	currency: string;
+	is_favorite: boolean;
+	images: string[];
+	seller: {
+		name: string;
+		phone: string;
+		email: string;
+	};
+	createdAt: string;
+}
 export enum AdType {
 	Offer,
 	Request,
