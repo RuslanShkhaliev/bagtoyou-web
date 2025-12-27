@@ -2,11 +2,11 @@ import { createBrowserClient } from '@api/supabase';
 import { ListingStatus } from '@entities/listing';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetUserAds = (status: ListingStatus) => {
+export const useGetUserListings = (status: ListingStatus) => {
 	const supabase = createBrowserClient();
 	console.log('status');
 	return useQuery({
-		queryKey: ['get-user-ads', status],
+		queryKey: ['get-user-listings', status],
 		queryFn: async () => {
 			const { data, error } = await supabase
 				.from('ads')

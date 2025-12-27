@@ -1,7 +1,7 @@
 import { Category } from '@entities/category';
+import { ModalCategory } from '@features/category-select/ui/ModalCategory';
 import { Badge, Button } from '@shared/ui';
 import { FC, useState } from 'react';
-import { ModalCategory } from 'src/features/ad-category-select/ui/ModalCategory';
 
 interface CategorySelectProps {
 	value: Category | null;

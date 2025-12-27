@@ -1,4 +1,4 @@
-import { ListingPreview } from '@entities/ad';
+import { ListingPreview } from '@entities/listing';
 import { FavoriteButton } from '@features/add-favorite';
 import {
 	AmountDisplay,

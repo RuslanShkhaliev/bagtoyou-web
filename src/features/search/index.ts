@@ -1,1 +1,1 @@
-export * from 'src/features/search-bar/ui/SearchBar';
+export * from '@features/search/ui/SearchBar';

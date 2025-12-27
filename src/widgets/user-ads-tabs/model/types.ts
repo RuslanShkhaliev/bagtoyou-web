@@ -1,6 +1,6 @@
-import { AdStatus } from '@entities/ad';
+import { ListingStatus } from '@entities/listing';
 
 export interface UserTabItem {
 	count: number;
-	status: AdStatus;
+	status: ListingStatus;
 }

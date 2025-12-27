@@ -3,7 +3,7 @@ import { AdModel } from '@entities/listing';
 import { ListingDetails } from '@entities/listing/ui/ListingDetails';
 import { getQueryClient } from '@lib/react-query';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { getAdByIdOptions } from '@views/ad-details/api/queries';
+import { getAdByIdOptions } from '@views/listing-details/api/queries';
 import { FC } from 'react';
 
 interface AdDetailsPageProps {

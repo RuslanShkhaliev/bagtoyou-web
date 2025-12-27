@@ -1,0 +1,127 @@
+---
+alwaysApply: true
+---
+
+---
+
+## alwaysApply: true
+
+# Cursor AI Rules — Flea Market Project
+
+## Project Context
+
+We are building an **online flea market (marketplace)**.
+
+Key constraints:
+
+- **Frontend-only application**
+- **No custom backend server**
+- All data, auth, and storage are handled via **Supabase**
+
+Frontend stack:
+
+- **Next.js (App Router)**
+- **TypeScript**
+- **Feature-Sliced Design (FSD)** architecture
+- **Tailwind CSS v4**
+- **shadcn/ui** as the base UI library
+
+---
+
+## Documentation Sources
+
+Cursor must always rely on the following documentation:
+
+### Marketing
+
+- `docs/marketing.md`
+    - Product problem
+    - Target audience
+    - Value proposition
+    - Positioning
+
+### Development
+
+- `docs/development.md`
+    - Architecture rules
+    - Tech stack
+    - FSD boundaries
+    - Supabase usage
+
+---
+
+## Architecture Rules (Strict)
+
+- Follow **Feature-Sliced Design** strictly
+- Do not violate layer boundaries
+- UI layers must not contain business logic
+- UI must not access Supabase directly
+- `shared` layer contains no business logic
+
+Allowed layers only:
+
+- app
+- widgets
+- features
+- entities
+- shared
+- views(pages)
+
+---
+
+## UI Rules
+
+- Build UI **prefer on top of shadcn/ui components**
+- Use Tailwind CSS v4 for styling
+- No custom UI kits
+- No inline styles
+- Follow shadcn composition patterns
+
+---
+
+## Code Rules
+
+- TypeScript is mandatory
+- Respect ESLint and Prettier
+- No unused exports or dead code
+- Predictable and explicit naming
+- Avoid over-abstraction
+
+---
+
+## Supabase Rules
+
+- Supabase is the only backend
+- No custom API servers
+- No REST endpoints outside Supabase
+- Use typed Supabase clients
+- Do not expose secrets in UI code
+
+---
+
+## AI Behavior Rules
+
+When generating code or suggestions:
+
+- Prefer concrete, production-ready solutions
+- Avoid speculative or "future" abstractions
+- Respect product constraints from marketing docs
+- Assume mobile-first UX
+- Optimize for simplicity and clarity
+
+---
+
+## Explicitly Forbidden
+
+- Adding a backend server
+- Introducing new UI libraries
+- Breaking FSD boundaries
+- Mixing business logic into UI
+- Generating generic boilerplate without context
+
+---
+
+## Goal
+
+Help the team move fast **without increasing architectural or UX complexity**.
+All decisions should reduce friction, not add it.

@@ -1,6 +1,6 @@
 'use client';
 
-import type { AdModel } from '@entities/ad';
+import type { AdModel } from '@entities/listing';
 import { Badge, BottomSheet, Button } from '@shared/ui';
 import {
 	Calendar,
@@ -14,12 +14,12 @@ import {
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
-interface AdDetailsProps {
+interface ListingDetailsProps {
 	data: AdModel | null;
 	open?: boolean;
 }
 
-export const AdDetails: FC<AdDetailsProps> = ({ data }) => {
+export const ListingDetails: FC<ListingDetailsProps> = ({ data }) => {
 	const router = useRouter();
 	const onClose = () => {
 		router.back();

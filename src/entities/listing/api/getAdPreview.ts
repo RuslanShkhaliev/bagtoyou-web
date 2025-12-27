@@ -1,4 +1,4 @@
-import { Ad } from '@entities/ad';
+import { Ad } from '@entities/listing';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export const getListingsPreview = async (

@@ -17,7 +17,7 @@ export interface FormValues {
 	category: Category;
 }
 
-interface AdFormProps {
+interface ListingFormProps {
 	values?: Partial<FormValues>;
 	images?: ListingImage[];
 	schema: ZodSchema;
@@ -28,7 +28,7 @@ interface AdFormProps {
 
 // TODO добавить флаг договорной цены
 
-export const AdForm: FC<AdFormProps> = ({
+export const ListingForm: FC<ListingFormProps> = ({
 	values,
 	images,
 	schema,

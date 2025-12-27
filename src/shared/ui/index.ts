@@ -25,3 +25,4 @@ export * from './avatar';
 export * from './badge';
 export * from './list';
 export * from './dialog';
+export * from './search-input';

@@ -1,29 +1,34 @@
-import { SuggestionList } from '@features/search-bar/ui/SuggestionList';
+import { SuggestionList } from '@features/search/ui/SuggestionList';
 import { ButtonClickEvent } from '@shared/types/events';
-import {
-	Button,
-	InputGroup,
-	InputGroupAddon,
-	InputGroupButton,
-	InputGroupInput,
-} from '@shared/ui';
-import { Filter, Search, X } from 'lucide-react';
-import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { Button, InputGroupButton, SearchInput } from '@shared/ui';
+import { Filter, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export const SearchBar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchText, setSearchText] = useState('');
 	const searchInputRef = useRef<HTMLDivElement>(null);
+	const [inputOffset, setInputOffset] = useState(0);
 
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : '';
+		document.documentElement.style.overflow = isOpen ? 'hidden' : '';
 	}, [isOpen]);
 	useEffect(() => {
-		document.documentElement.style.setProperty(
-			'--search-bar-y-position',
-			searchInputRef.current!.offsetTop + 'px',
-		);
-	}, []);
+		if (!isOpen || !searchInputRef.current) return;
+
+		const updatePosition = () => {
+			const rect = searchInputRef.current!.getBoundingClientRect();
+			setInputOffset(rect.bottom);
+		};
+
+		updatePosition();
+		window.addEventListener('resize', updatePosition);
+
+		return () => {
+			window.removeEventListener('resize', updatePosition);
+		};
+	}, [isOpen]);
 
 	const exitSearch = () => {
 		setIsOpen(false);
@@ -64,55 +69,26 @@ export const SearchBar = () => {
 			ref={searchInputRef}
 			className={'flex gap-2 items-center'}
 		>
-			<SearchInput
-				addon={renderAddon}
-				value={searchText}
-				onFocus={() => setIsOpen(true)}
-				onBlur={() => setIsOpen(false)}
-				onChange={setSearchText}
-			/>
+			<div className={'flex gap-2 items-center w-full'}>
+				<SearchInput
+					right={renderAddon}
+					value={searchText}
+					placeholder={'Я ищу...'}
+					onClick={() => setIsOpen(true)}
+					onChange={setSearchText}
+				/>
 
-			{isOpen && (
-				<Button
-					onClick={exitSearch}
-					variant={'ghost'}
-					className={'text-green-400'}
-				>
-					Отменить
-				</Button>
-			)}
-			{true && <SuggestionList />}
+				{isOpen && (
+					<Button
+						onClick={exitSearch}
+						variant={'ghost'}
+						className={'text-green-400'}
+					>
+						Отменить
+					</Button>
+				)}
+			</div>
+			{isOpen && <SuggestionList offsetY={inputOffset} />}
 		</div>
-	);
-};
-
-interface SearchInputProps {
-	value: string;
-	addon: ReactNode;
-	onFocus: () => void;
-	onBlur: () => void;
-	onChange: (value: string) => void;
-}
-const SearchInput: FC<SearchInputProps> = ({
-	value,
-	addon,
-	onChange,
-	onBlur,
-	onFocus,
-}) => {
-	return (
-		<InputGroup>
-			<InputGroupAddon>
-				<Search />
-			</InputGroupAddon>
-			<InputGroupInput
-				placeholder={'Поиск по объявлениям'}
-				value={value}
-				onFocus={onFocus}
-				onBlur={onBlur}
-				onChange={(e) => onChange(e.target.value)}
-			/>
-			<InputGroupAddon align={'inline-end'}>{addon}</InputGroupAddon>
-		</InputGroup>
 	);
 };

@@ -1,12 +1,12 @@
-import { AdStatus } from '@entities/ad';
+import { ListingStatus } from '@entities/listing';
 import { ItemGroup } from '@shared/ui';
-import { useGetUserAds } from '@widgets/user-ads-tabs/api/useGetUserAds';
+import { useGetUserListings } from '@widgets/user-ads-tabs/api/useGetUserListings';
 import { SkeletonLoader } from '@widgets/user-ads-tabs/ui/skeleton';
 import Link from 'next/link';
 import { FC, Fragment } from 'react';
 
 interface UserAdsListProps {
-	status: AdStatus;
+	status: ListingStatus;
 	onCardClick?: (adId: number) => void;
 	onMenuClick?: (adId: number) => void;
 	emptyMessage?: React.ReactNode;
@@ -19,7 +19,7 @@ export const UserAdsList: FC<UserAdsListProps> = ({
 }) => {
 	console.log(status, 'status');
 
-	const { data: ads, isLoading } = useGetUserAds(status);
+	const { data: ads, isLoading } = useGetUserListings(status);
 
 	if (isLoading) {
 		return <SkeletonLoader count={5} />;
@@ -37,7 +37,7 @@ export const UserAdsList: FC<UserAdsListProps> = ({
 		<ItemGroup className={'px-3 flex flex-col gap-3'}>
 			{ads.map((ad) => (
 				<Fragment key={ad.id}>
-					<Link href={`/ads/${ad.id}`} />
+					<Link href={`/listings/${ad.id}`} />
 				</Fragment>
 			))}
 		</ItemGroup>

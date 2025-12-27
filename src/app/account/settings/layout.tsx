@@ -14,7 +14,7 @@ export default function AccountSettingsLayout({ children }: PropsWithChildren) {
 		<BottomSheet
 			open
 			defaultOpen={true}
-			handle={false}
+			handler={false}
 			onClose={handleClose}
 		>
 			<div className='flex flex-col h-full'>

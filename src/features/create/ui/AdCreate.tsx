@@ -1,8 +1,8 @@
 'use client';
 import { createBrowserClient } from '@api/supabase';
-import { AdForm, CreateAd, FormValues } from '@entities/ad';
-import { createAd } from '@entities/ad/api/createAd';
-import { uploadMedia } from '@entities/ad/api/uploadMedia';
+import { CreateAd, FormValues, ListingForm } from '@entities/listing';
+import { createListing } from '@entities/listing/api/createListing';
+import { uploadMedia } from '@entities/listing/api/uploadMedia';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
@@ -13,7 +13,7 @@ const useCreateAd = () => {
 
 	return useMutation({
 		mutationFn: async ({ media, ...dto }: CreateAd & { media: File[] }) => {
-			const ad = await createAd(supabase, dto);
+			const ad = await createListing(supabase, dto);
 
 			if (media?.length) {
 				try {
@@ -75,7 +75,7 @@ export const AdCreatePage: FC = () => {
 			},
 			{
 				onSuccess: (id) => {
-					router.replace(`/ads/${id}`);
+					router.replace(`/listings/${id}`);
 				},
 				onError: (error) => {
 					console.log('error', error);
@@ -85,7 +85,7 @@ export const AdCreatePage: FC = () => {
 	};
 
 	return (
-		<AdForm
+		<ListingForm
 			schema={createSchema}
 			onSubmit={handleSubmit}
 		/>

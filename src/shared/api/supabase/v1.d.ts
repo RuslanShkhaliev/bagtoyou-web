@@ -217,6 +217,86 @@ export type Database = {
           },
         ]
       }
+      conversations: {
+        Row: {
+          ad_id: number
+          buyer_id: string
+          created_at: string
+          id: number
+          last_message_id: number | null
+          seller_id: string
+          updated_at: string
+        }
+        Insert: {
+          ad_id: number
+          buyer_id: string
+          created_at?: string
+          id?: number
+          last_message_id?: number | null
+          seller_id: string
+          updated_at?: string
+        }
+        Update: {
+          ad_id?: number
+          buyer_id?: string
+          created_at?: string
+          id?: number
+          last_message_id?: number | null
+          seller_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversations_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: false
+            referencedRelation: "ads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversations_ad_id_fkey"
+            columns: ["ad_id"]
+            isOneToOne: false
+            referencedRelation: "ads_preview"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body: string
+          conversation_id: number
+          created_at: string
+          id: number
+          is_read: boolean
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          conversation_id: number
+          created_at?: string
+          id?: number
+          is_read?: boolean
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          conversation_id?: number
+          created_at?: string
+          id?: number
+          is_read?: boolean
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           about: string | null
@@ -306,6 +386,25 @@ export type Database = {
         }[]
       }
       mark_expired_ads: { Args: never; Returns: undefined }
+      send_message: {
+        Args: {
+          p_body: string
+          p_conversation_id: number
+          p_sender_id?: string
+        }
+        Returns: number
+      }
+      start_conversation: {
+        Args: {
+          p_ad_id: number
+          p_buyer_id?: string
+          p_initial_message: string
+        }
+        Returns: {
+          action: string
+          conversation_id: number
+        }[]
+      }
       toggle_favorite: {
         Args: { p_ad_id: number; p_user_id?: string }
         Returns: Json

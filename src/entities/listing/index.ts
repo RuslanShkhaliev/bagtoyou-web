@@ -1,3 +1,3 @@
-export * from '@entities/ad/ui/ListingCard';
+export * from '@entities/listing/ui/ListingCard';
 export * from './model/types';
-export * from 'src/entities/ad/ui/AdForm';
+export * from '@entities/listing/ui/ListingForm';

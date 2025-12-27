@@ -1,1 +1,1 @@
-export { CreateAdPage as default } from '@views/ad-create';
+export { CreateAdPage as default } from '@views/listing-create';

@@ -2,7 +2,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { queryOptions } from '@tanstack/react-query';
 import { Ad } from '../model/types';
 
-export const getAdDetails = async (
+export const getListingDetails = async (
 	supabase: SupabaseClient,
 	adId: number,
 ): Promise<Ad> => {
@@ -38,6 +38,6 @@ export const getAdDetails = async (
 export const getAdOptions = (supabase: SupabaseClient, adId: number) => {
 	return queryOptions({
 		queryKey: ['ad', adId],
-		queryFn: () => getAdDetails(supabase, adId),
+		queryFn: () => getListingDetails(supabase, adId),
 	});
 };

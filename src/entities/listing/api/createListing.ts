@@ -1,7 +1,7 @@
 import { Ad, CreateAd } from '@entities/listing';
 import { SupabaseClient } from '@supabase/supabase-js';
 
-export const createAd = async (
+export const createListing = async (
 	supabase: SupabaseClient,
 	ad: CreateAd,
 ): Promise<Ad> => {

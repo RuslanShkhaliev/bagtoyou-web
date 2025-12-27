@@ -1,16 +1,17 @@
 'use client';
 
-import { AdCard } from '@entities/ad/ui/AdCard';
+import { appRoutes } from '@config/routes';
 import { Category, useGetCategories } from '@entities/category';
-import { SearchBar } from '@features/search-bar';
+import { ListingCard } from '@entities/listing';
+import { SearchBar } from '@features/search';
 import { Badge } from '@shared/ui';
-import { useGetAds } from '@views/main/api/getAds';
 import { Locations } from '@widgets/location-picker';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useGetListings } from '../api/getAds';
 
 export const SearchPage = () => {
-	const { data: ads, isLoading, isError } = useGetAds();
+	const { data: ads, isLoading, isError } = useGetListings();
 	const { data: categories, isLoading: loadingCategories } =
 		useGetCategories();
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
@@ -32,7 +33,7 @@ export const SearchPage = () => {
 
 	const router = useRouter();
 	const handleOpenListing = (id: number) => {
-		router.push(`/ads/${id}`);
+		router.push(appRoutes.listings.details(id));
 	};
 
 	if (isLoading) {
@@ -44,19 +45,10 @@ export const SearchPage = () => {
 	}
 
 	return (
-		<div>
-			<header className='border-b sticky top-0 bg-background/95 backdrop-blur z-10 mb-4'>
-				<div className=' mx-auto px-2 py-4'>
-					<div className='flex flex-col md:flex-row gap-4 md:items-center md:justify-between'>
-						<div>
-							<h1 className='text-primary mb-1'>Барахолка</h1>
-							<p className='text-muted-foreground'>
-								Купить и продать вещи легко
-							</p>
-						</div>
-					</div>
-
-					<div className='my-4 relative'>
+		<div className={'flex flex-col gap-4'}>
+			<header className='border-b top-0 bg-background/95 backdrop-blur z-10'>
+				<div className='mx-auto px-2 py-4'>
+					<div className={' mb-4'}>
 						<SearchBar />
 					</div>
 
@@ -81,17 +73,11 @@ export const SearchPage = () => {
 			</header>
 			<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-2 px-2'>
 				{ads.map((adPreview) => (
-					<AdCard
+					<ListingCard
 						key={adPreview.id}
 						onClick={() => handleOpenListing(adPreview.id)}
 						data={adPreview}
 					/>
-					/*<Link
-						key={adPreview.id}
-						href={`/ads/${adPreview.id}`}
-					>
-						<AdCard data={adPreview} />
-					</Link>*/
 				))}
 			</div>
 		</div>

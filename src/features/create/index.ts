@@ -1,1 +1,1 @@
-export * from '@features/ad-create/ui/AdCreate';
+export * from '@features/create/ui/AdCreate';
