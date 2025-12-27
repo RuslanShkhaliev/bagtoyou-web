@@ -1,3 +1,4 @@
+import { SuggestionList } from '@features/search-bar/ui/SuggestionList';
 import { ButtonClickEvent } from '@shared/types/events';
 import {
 	Button,
@@ -5,20 +6,24 @@ import {
 	InputGroupAddon,
 	InputGroupButton,
 	InputGroupInput,
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
 } from '@shared/ui';
 import { Filter, Search, X } from 'lucide-react';
-import { FC, ReactNode, useEffect, useMemo, useState } from 'react';
+import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 export const SearchBar = () => {
-	const [isFocused, setIsFocused] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchText, setSearchText] = useState('');
+	const searchInputRef = useRef<HTMLDivElement>(null);
+
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : '';
 	}, [isOpen]);
+	useEffect(() => {
+		document.documentElement.style.setProperty(
+			'--search-bar-y-position',
+			searchInputRef.current!.offsetTop + 'px',
+		);
+	}, []);
 
 	const exitSearch = () => {
 		setIsOpen(false);
@@ -55,42 +60,46 @@ export const SearchBar = () => {
 	}, [isOpen, searchText]);
 
 	return (
-		<Popover
-			open={isOpen}
-			onOpenChange={setIsOpen}
+		<div
+			ref={searchInputRef}
+			className={'flex gap-2 items-center'}
 		>
-			<PopoverTrigger asChild>
-				<div className={'flex gap-2 items-center'}>
-					<SearchInput
-						addon={renderAddon}
-						value={searchText}
-						onChange={setSearchText}
-					/>
-					{isOpen && (
-						<Button
-							onClick={exitSearch}
-							variant={'ghost'}
-							className={'text-green-400'}
-						>
-							Отменить
-						</Button>
-					)}
-				</div>
-			</PopoverTrigger>
+			<SearchInput
+				addon={renderAddon}
+				value={searchText}
+				onFocus={() => setIsOpen(true)}
+				onBlur={() => setIsOpen(false)}
+				onChange={setSearchText}
+			/>
 
-			<PopoverContent className={'w-full'}>
-				<div className={'h-screen w-screen'}>history</div>
-			</PopoverContent>
-		</Popover>
+			{isOpen && (
+				<Button
+					onClick={exitSearch}
+					variant={'ghost'}
+					className={'text-green-400'}
+				>
+					Отменить
+				</Button>
+			)}
+			{true && <SuggestionList />}
+		</div>
 	);
 };
 
 interface SearchInputProps {
 	value: string;
 	addon: ReactNode;
+	onFocus: () => void;
+	onBlur: () => void;
 	onChange: (value: string) => void;
 }
-const SearchInput: FC<SearchInputProps> = ({ value, addon, onChange }) => {
+const SearchInput: FC<SearchInputProps> = ({
+	value,
+	addon,
+	onChange,
+	onBlur,
+	onFocus,
+}) => {
 	return (
 		<InputGroup>
 			<InputGroupAddon>
@@ -99,6 +108,8 @@ const SearchInput: FC<SearchInputProps> = ({ value, addon, onChange }) => {
 			<InputGroupInput
 				placeholder={'Поиск по объявлениям'}
 				value={value}
+				onFocus={onFocus}
+				onBlur={onBlur}
 				onChange={(e) => onChange(e.target.value)}
 			/>
 			<InputGroupAddon align={'inline-end'}>{addon}</InputGroupAddon>

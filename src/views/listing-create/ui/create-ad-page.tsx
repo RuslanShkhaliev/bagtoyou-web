@@ -1,6 +1,6 @@
 'use client';
 
-import { AdCreatePage } from '@features/ad-create';
+import { AdCreatePage } from '@features/create';
 import { BottomSheet, Button } from '@shared/ui';
 import { X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ export const CreateAdPage = () => {
 			defaultOpen={true}
 			dismissible={false}
 			open={true}
-			handle={false}
+			handler={false}
 			onClose={handleClose}
 		>
 			<header className={'flex justify-center items-center relative'}>

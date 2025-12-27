@@ -1,5 +1,5 @@
 import { createBrowserClient } from '@api/supabase';
-import { getAdDetails } from '@entities/ad/api/getAdDetails';
+import { getListingDetails } from '@entities/listing/api/getListingDetails';
 import { SupabaseClient } from '@supabase/supabase-js';
 import {
 	QueryClient,
@@ -11,7 +11,7 @@ import {
 export const getAdByIdOptions = (supabase: SupabaseClient, id: number) =>
 	queryOptions({
 		queryKey: ['get-ad-by-id', id],
-		queryFn: () => getAdDetails(supabase, id),
+		queryFn: () => getListingDetails(supabase, id),
 	});
 export const useGetAdById = (id: number) => {
 	return useSuspenseQuery(getAdByIdOptions(createBrowserClient(), id));

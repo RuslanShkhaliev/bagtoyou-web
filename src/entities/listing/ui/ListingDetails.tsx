@@ -2,7 +2,15 @@
 
 import type { AdModel } from '@entities/ad';
 import { Badge, BottomSheet, Button } from '@shared/ui';
-import { Calendar, Mail, MapPin, Phone, User } from 'lucide-react';
+import {
+	Calendar,
+	ChevronLeft,
+	Ellipsis,
+	Mail,
+	MapPin,
+	Phone,
+	User,
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
@@ -22,7 +30,26 @@ export const AdDetails: FC<AdDetailsProps> = ({ data }) => {
 		<BottomSheet
 			onClose={onClose}
 			open={true}
+			handler={false}
 		>
+			<div
+				className={
+					'fixed w-full left-0 top-0 flex items-center justify-between py-2 bg-transparent'
+				}
+			>
+				<Button
+					variant={'ghost'}
+					size={'icon'}
+				>
+					<ChevronLeft />
+				</Button>
+				<Button
+					variant={'ghost'}
+					size={'icon'}
+				>
+					<Ellipsis />
+				</Button>
+			</div>
 			<div className='space-y-6'>
 				<img
 					src={data.imageUrl}

@@ -1,6 +1,6 @@
 import { createBrowserClient } from '@api/supabase';
-import { AdModel } from '@entities/ad';
-import { AdDetails } from '@entities/ad/ui/AdDetails';
+import { AdModel } from '@entities/listing';
+import { ListingDetails } from '@entities/listing/ui/ListingDetails';
 import { getQueryClient } from '@lib/react-query';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { getAdByIdOptions } from '@views/ad-details/api/queries';
@@ -21,7 +21,7 @@ export const AdDetailsPage: FC<AdDetailsPageProps> = async ({ params }) => {
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<AdDetails data={ad as unknown as AdModel} />
+			<ListingDetails data={ad as unknown as AdModel} />
 		</HydrationBoundary>
 	);
 };

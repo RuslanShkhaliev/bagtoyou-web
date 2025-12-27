@@ -1,7 +1,7 @@
 import { Ad } from '@entities/ad';
 import { SupabaseClient } from '@supabase/supabase-js';
 
-export const getAdsPreview = async (
+export const getListingsPreview = async (
 	supabase: SupabaseClient,
 ): Promise<Ad[]> => {
 	const { data, error } = await supabase

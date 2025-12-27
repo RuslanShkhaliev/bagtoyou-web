@@ -1,8 +1,8 @@
 import { createBrowserClient } from '@api/supabase';
-import { AdStatus } from '@entities/ad';
+import { ListingStatus } from '@entities/listing';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetUserAds = (status: AdStatus) => {
+export const useGetUserAds = (status: ListingStatus) => {
 	const supabase = createBrowserClient();
 	console.log('status');
 	return useQuery({

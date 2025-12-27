@@ -1,4 +1,4 @@
-import { Ad, CreateAd } from '@entities/ad';
+import { Ad, CreateAd } from '@entities/listing';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export const createAd = async (

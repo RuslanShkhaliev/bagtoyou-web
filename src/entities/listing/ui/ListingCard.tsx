@@ -1,5 +1,5 @@
-import { AdPreview } from '@entities/ad';
-import { FavoriteButton } from '@features/add-favorite/ui/FavoriteButton';
+import { ListingPreview } from '@entities/ad';
+import { FavoriteButton } from '@features/add-favorite';
 import {
 	AmountDisplay,
 	Card,
@@ -12,12 +12,12 @@ import { ImageIcon, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import { FC } from 'react';
 
-interface AdCardProps {
-	data: AdPreview;
+interface ListingCardProps {
+	data: ListingPreview;
 	onClick: () => void;
 }
 
-export const AdCard: FC<AdCardProps> = ({ data, onClick }) => {
+export const ListingCard: FC<ListingCardProps> = ({ data, onClick }) => {
 	return (
 		<Card
 			onClick={onClick}

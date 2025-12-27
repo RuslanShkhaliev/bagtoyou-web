@@ -1,7 +1,7 @@
 'use client';
-import { AdImage } from '@entities/ad';
 import { Category } from '@entities/category';
-import { SelectCategory } from '@features/ad-category-select';
+import { ListingImage } from '@entities/listing';
+import { SelectCategory } from '@features/category-select';
 import { Button, FieldError, FormField, Input, Textarea } from '@shared/ui';
 import { InputPrice } from '@shared/ui/input-price';
 import { useForm } from '@tanstack/react-form';
@@ -19,7 +19,7 @@ export interface FormValues {
 
 interface AdFormProps {
 	values?: Partial<FormValues>;
-	images?: AdImage[];
+	images?: ListingImage[];
 	schema: ZodSchema;
 	// onImagePick: (files: filese[]) => void;
 	// onImageRemove: (image: AdImage) => void;
